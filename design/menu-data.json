@@ -1,0 +1,869 @@
+{
+  "venue": "Il Traghetto Blu",
+  "currency": "EUR",
+  "categories": [
+    {
+      "key": "caffe",
+      "icon": "coffee",
+      "name": {
+        "it": "Caffetteria · Colazione & Bevande",
+        "en": "Breakfast & Soft drinks"
+      },
+      "chip": {
+        "it": "Caffetteria",
+        "en": "Breakfast & Drinks"
+      },
+      "tileColor": "#f2e6da"
+    },
+    {
+      "key": "snack",
+      "icon": "local_pizza",
+      "name": {
+        "it": "Cibo & Snack",
+        "en": "Food & Snacks"
+      },
+      "chip": {
+        "it": "Cibo & Snack",
+        "en": "Food & Snacks"
+      },
+      "tileColor": "#ffdad6"
+    },
+    {
+      "key": "alcol",
+      "icon": "local_bar",
+      "name": {
+        "it": "Alcolici",
+        "en": "Alcoholic drinks"
+      },
+      "chip": {
+        "it": "Alcolici",
+        "en": "Alcoholic drinks"
+      },
+      "tileColor": "#ffddb8"
+    },
+    {
+      "key": "cucina",
+      "icon": "restaurant",
+      "name": {
+        "it": "Cucina pescarese",
+        "en": "Pescara kitchen"
+      },
+      "chip": {
+        "it": "Cucina pescarese",
+        "en": "Pescara kitchen"
+      },
+      "tileColor": "#cce5ff"
+    },
+    {
+      "key": "dolci",
+      "icon": "cake",
+      "name": {
+        "it": "Dolci abruzzesi",
+        "en": "Abruzzo sweets"
+      },
+      "chip": {
+        "it": "Dolci",
+        "en": "Sweets"
+      },
+      "tileColor": "#e2e7ff"
+    }
+  ],
+  "allergens": {
+    "glutine": {
+      "it": "Glutine",
+      "en": "Gluten"
+    },
+    "crostacei": {
+      "it": "Crostacei",
+      "en": "Shellfish"
+    },
+    "molluschi": {
+      "it": "Molluschi",
+      "en": "Molluscs"
+    },
+    "latte": {
+      "it": "Latte",
+      "en": "Milk"
+    },
+    "frutta": {
+      "it": "Frutta a guscio",
+      "en": "Tree nuts"
+    },
+    "uova": {
+      "it": "Uova",
+      "en": "Eggs"
+    },
+    "pesce": {
+      "it": "Pesce",
+      "en": "Fish"
+    },
+    "solfiti": {
+      "it": "Solfiti",
+      "en": "Sulphites"
+    }
+  },
+  "products": [
+    {
+      "id": "aperol",
+      "category": "alcol",
+      "name": "Aperol Spritz con Patatine",
+      "price": 8.5,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAppoTCS63MbhYG-HKO-VVfFSwSVZiY6HXuPwoujH_yAjmI0ZX6r6v7nLSh0sL8-SDUXyGkZXRTn8IjCNZfM9lpeIUYflJYplv0qZ-M-F1VS_sGowIxRlUOBgX3P-y_QVGk8JuWNYzE9CT4PZimNQVmxOwTooZWy4ipY4PuO2qLJLM7iszZWvTaLHX5BI4SooNGY63Uxt4bA43-Pzkq3fmh1TFwEFGFlVTFd5TYJ9CJ3h-3gNCg3VprwA",
+      "featured": true,
+      "badge": "fav",
+      "allergens": [
+        "solfiti"
+      ],
+      "tag": {
+        "it": "Spritz",
+        "en": "Spritz"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Patatine salate al sale di Cervia",
+        "en": "Crisps with Cervia sea salt"
+      },
+      "cartNote": {
+        "it": "Ghiaccio, scorza arancia",
+        "en": "Ice, orange peel"
+      },
+      "description": {
+        "it": "Aperol, prosecco DOC e soda su ghiaccio, servito con una ciotola di patatine al sale di Cervia.",
+        "en": "Aperol, DOC prosecco and soda over ice, served with a bowl of Cervia sea-salt crisps."
+      }
+    },
+    {
+      "id": "insalata",
+      "category": "cucina",
+      "name": "Insalata di Mare & Agrumi",
+      "price": 14,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDwvDISmX27HX1WUdFtKUHvrfKPdgxXo2zy06Iebo0vFePCGrVybS-KyGZzVgUtrctMhBHsoR5A8Ad4n5bri6gJS2gxX__CAYy0softTOOiUS_jhc2pvFPD5KbI-qH22JB1u6P7XCLfqati0X66pgXkmCv_mngB5diixNmjMG6Rs2DuTH0IOVKnSLxAuTCbpPXpkKYg_D8PdLX1wipFOwBtfIUFauG-7_qPyqTTxujHN6Ea0u3OKp4owg",
+      "featured": true,
+      "badge": "catch",
+      "allergens": [
+        "crostacei",
+        "molluschi"
+      ],
+      "tag": {
+        "it": "Pescato",
+        "en": "Catch"
+      },
+      "tagColor": "blue",
+      "shortDescription": {
+        "it": "Crostacei · Fresco",
+        "en": "Shellfish · Fresh"
+      },
+      "cartNote": {
+        "it": "Polpo, gamberi, arancia",
+        "en": "Octopus, prawns, orange"
+      },
+      "description": {
+        "it": "Polpo, gamberi e calamari del pescato dell'Adriatico con arance, limone e olio extravergine abruzzese.",
+        "en": "Adriatic octopus, prawns and squid with orange, lemon and Abruzzo extra-virgin olive oil."
+      }
+    },
+    {
+      "id": "espresso",
+      "category": "caffe",
+      "name": "Espresso",
+      "price": 1.3,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/Cup_of_espresso_02.jpg/960px-Cup_of_espresso_02.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [],
+      "tag": {
+        "it": "Classico",
+        "en": "Classic"
+      },
+      "tagColor": "blue",
+      "shortDescription": {
+        "it": "Miscela torrefatta a Pescara",
+        "en": "Blend roasted in Pescara"
+      },
+      "cartNote": {
+        "it": "Tazzina calda",
+        "en": "Hot cup"
+      },
+      "description": {
+        "it": "Espresso con miscela di una torrefazione pescarese, servito al lettino con bicchiere d'acqua.",
+        "en": "Espresso from a Pescara roastery, served at your sunbed with a glass of water."
+      }
+    },
+    {
+      "id": "cappuccino",
+      "category": "caffe",
+      "name": "Cappuccino",
+      "price": 1.8,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Cappuccino_with_foam.jpg/960px-Cappuccino_with_foam.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "latte"
+      ],
+      "tag": {
+        "it": "Colazione",
+        "en": "Breakfast"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Anche con latte vegetale",
+        "en": "Plant milk available"
+      },
+      "cartNote": {
+        "it": "Latte intero",
+        "en": "Whole milk"
+      },
+      "description": {
+        "it": "Espresso e latte montato. Disponibile anche con latte di soia o avena.",
+        "en": "Espresso and steamed milk. Soy or oat milk available."
+      }
+    },
+    {
+      "id": "cornetto",
+      "category": "caffe",
+      "name": "Cornetto",
+      "price": 1.5,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Cornetto_a_colazione_al_B%26B_Esperan%C3%A7a_-_Frascineto_%28CS%29.jpg/960px-Cornetto_a_colazione_al_B%26B_Esperan%C3%A7a_-_Frascineto_%28CS%29.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine",
+        "uova",
+        "latte"
+      ],
+      "tag": {
+        "it": "Colazione",
+        "en": "Breakfast"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Vuoto, crema, marmellata o Nutella",
+        "en": "Plain, custard, jam or Nutella"
+      },
+      "cartNote": {
+        "it": "Alla crema",
+        "en": "Custard"
+      },
+      "description": {
+        "it": "Cornetto sfornato la mattina: vuoto, alla crema, alla marmellata o alla Nutella.",
+        "en": "Baked every morning: plain, custard, jam or Nutella."
+      }
+    },
+    {
+      "id": "caffe",
+      "category": "caffe",
+      "name": "Caffè Shakerato",
+      "price": 3.5,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuB-G_yAxt2IgtCpOc1rKYnKY5B7XAMVca6g6rxUZesmeW3OoAUgqjIc9X9xlg5oIHtK5zflQIyCoXNUPjUM-xes3cYgRHu6fL3KAqGfXbrHLaXROIGJmTzg-2th6y3mw3Yi1zxilruIrTlORLKpllV-U_Gr8mpgsN3NEXEigYYx2205vG97Ydt0A6uWLL3c9AhC4roHPy-44c-2KurtYHK79oPsQKE1G30ky42v9lcYHsGWU9orm3Aapw",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "frutta"
+      ],
+      "tag": {
+        "it": "Freddo",
+        "en": "Iced"
+      },
+      "tagColor": "blue",
+      "shortDescription": {
+        "it": "Con latte di mandorla",
+        "en": "With almond milk"
+      },
+      "cartNote": {
+        "it": "Con latte di mandorla",
+        "en": "With almond milk"
+      },
+      "description": {
+        "it": "Espresso shakerato con ghiaccio e latte di mandorla.",
+        "en": "Espresso shaken over ice with almond milk."
+      }
+    },
+    {
+      "id": "cappfreddo",
+      "category": "caffe",
+      "name": "Cappuccino Freddo",
+      "price": 2.8,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Cappuccino_freddo.jpg/960px-Cappuccino_freddo.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "latte"
+      ],
+      "tag": {
+        "it": "Freddo",
+        "en": "Iced"
+      },
+      "tagColor": "blue",
+      "shortDescription": {
+        "it": "Latte montato a freddo",
+        "en": "Cold-frothed milk"
+      },
+      "cartNote": {
+        "it": "Latte montato a freddo",
+        "en": "Cold-frothed milk"
+      },
+      "description": {
+        "it": "Espresso, latte fresco montato a freddo e ghiaccio.",
+        "en": "Espresso, cold-frothed fresh milk and ice."
+      }
+    },
+    {
+      "id": "granita",
+      "category": "caffe",
+      "name": "Granita al Limone",
+      "price": 4.5,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBHuISHwB62GYMWAgxdYVVz2hPplSM8T6T2RGI7ZOi3bRnT1soFUy77rEQdsPkrWS6HMTiy3NmQ6eeChc9GopnxUfnsPPfRIidu4UbDTzeRcHxyg99HI1tPaK-VyIaLbyCAPplAT_menMGpCOvnR7sYgyor6a1sLmpKariet8iwhpFlvR0Gyr_uG-dg4Bj-X3TayVqqQ7nZxjh1_KUvATw7SgF9aJ2cfoEpKcNmRikqoTpT8ralUNdbsQ",
+      "featured": false,
+      "badge": null,
+      "allergens": [],
+      "tag": {
+        "it": "Senza Glutine",
+        "en": "Gluten free"
+      },
+      "tagColor": "mint",
+      "shortDescription": {
+        "it": "Artigianale, poco zuccherata",
+        "en": "Hand-made, lightly sweetened"
+      },
+      "cartNote": {
+        "it": "Artigianale",
+        "en": "Hand-made"
+      },
+      "description": {
+        "it": "Granita artigianale al limone. Fresca, poco zuccherata.",
+        "en": "Hand-made lemon granita. Fresh, lightly sweetened."
+      }
+    },
+    {
+      "id": "spremuta",
+      "category": "caffe",
+      "name": "Spremuta d'Arancia",
+      "price": 4,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Orange_juice_1_edit1.jpg/960px-Orange_juice_1_edit1.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [],
+      "tag": {
+        "it": "Vegano",
+        "en": "Vegan"
+      },
+      "tagColor": "mint",
+      "shortDescription": {
+        "it": "Spremuta al momento",
+        "en": "Freshly squeezed"
+      },
+      "cartNote": {
+        "it": "Con ghiaccio",
+        "en": "With ice"
+      },
+      "description": {
+        "it": "Arance spremute al momento, servite con ghiaccio.",
+        "en": "Freshly squeezed oranges, served over ice."
+      }
+    },
+    {
+      "id": "acqua",
+      "category": "caffe",
+      "name": "Acqua Minerale 50 cl",
+      "price": 1.5,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Acqua_Panna_mineral_water_in_a_glass_bottle_-_20140408.jpg/960px-Acqua_Panna_mineral_water_in_a_glass_bottle_-_20140408.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [],
+      "tag": {
+        "it": "Naturale o frizzante",
+        "en": "Still or sparkling"
+      },
+      "tagColor": "blue",
+      "shortDescription": {
+        "it": "Naturale o frizzante",
+        "en": "Still or sparkling"
+      },
+      "cartNote": {
+        "it": "Ghiacciata",
+        "en": "Ice cold"
+      },
+      "description": {
+        "it": "Acqua minerale abruzzese, naturale o frizzante, servita ghiacciata.",
+        "en": "Abruzzo mineral water, still or sparkling, served ice cold."
+      }
+    },
+    {
+      "id": "aurum",
+      "category": "alcol",
+      "name": "Spritz all'Aurum",
+      "price": 8,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Blood_Orange_Spritz_-_Sarah_Stierch.jpg/960px-Blood_Orange_Spritz_-_Sarah_Stierch.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "solfiti"
+      ],
+      "tag": {
+        "it": "Pescara",
+        "en": "Pescara"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Liquore pescarese all'arancia",
+        "en": "Pescara orange liqueur"
+      },
+      "cartNote": {
+        "it": "Ghiaccio, fetta d'arancia",
+        "en": "Ice, orange slice"
+      },
+      "description": {
+        "it": "Aurum, il liquore pescarese a base di brandy e arance, con prosecco e soda.",
+        "en": "Aurum, the Pescara liqueur made with brandy and oranges, topped with prosecco and soda."
+      }
+    },
+    {
+      "id": "birra",
+      "category": "alcol",
+      "name": "Birra Artigianale Bionda",
+      "price": 5,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAHJaOJVEqtuC4jd-bJL5KboR4-OD7aSFCXOy_11MClMo4lJaewP13X7PeweLnZfl6leR1fBoSDn_qA7w3weVLCMEq-Jemmz-OTCx2sxhuAgb0wG3hQ3xi5WmGERdLQZBrd7BNxtJftoEZId8eX1a8RvGK9nOPxzBIJN0Fq6MRUadReb4UFG7gisUGxQ7fCbYN-HaUDAW1jfn9nyXU4p4y21tETOBdI5014-vheqGo7mJ_uyjd_MySeoQ",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine"
+      ],
+      "tag": {
+        "it": "Abruzzo",
+        "en": "Abruzzo"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "33 cl, birrificio abruzzese",
+        "en": "33 cl, Abruzzo brewery"
+      },
+      "cartNote": {
+        "it": "33 cl, ghiacciata",
+        "en": "33 cl, ice cold"
+      },
+      "description": {
+        "it": "Bionda non filtrata di un birrificio artigianale abruzzese, servita ghiacciata.",
+        "en": "Unfiltered blonde ale from an Abruzzo craft brewery, served ice cold."
+      }
+    },
+    {
+      "id": "pecorino",
+      "category": "alcol",
+      "name": "Calice di Pecorino d'Abruzzo",
+      "price": 6,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/71/White_Wine_Glas.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "solfiti"
+      ],
+      "tag": {
+        "it": "DOC",
+        "en": "DOC"
+      },
+      "tagColor": "mint",
+      "shortDescription": {
+        "it": "Bianco fresco e minerale",
+        "en": "Crisp, mineral white"
+      },
+      "cartNote": {
+        "it": "Calice 15 cl",
+        "en": "15 cl glass"
+      },
+      "description": {
+        "it": "Pecorino d'Abruzzo DOC, bianco fresco e sapido, perfetto con il fritto.",
+        "en": "Pecorino d'Abruzzo DOC, a crisp savoury white that pairs with fried fish."
+      }
+    },
+    {
+      "id": "cerasuolo",
+      "category": "alcol",
+      "name": "Calice di Cerasuolo d'Abruzzo",
+      "price": 6,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Montepulciano_d%27Abruzzo_Cerasuolo_2007.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "solfiti"
+      ],
+      "tag": {
+        "it": "DOC",
+        "en": "DOC"
+      },
+      "tagColor": "mint",
+      "shortDescription": {
+        "it": "Rosato servito fresco",
+        "en": "Rosé served chilled"
+      },
+      "cartNote": {
+        "it": "Calice 15 cl",
+        "en": "15 cl glass"
+      },
+      "description": {
+        "it": "Cerasuolo d'Abruzzo DOC, rosato di Montepulciano, servito fresco.",
+        "en": "Cerasuolo d'Abruzzo DOC, a Montepulciano rosé served chilled."
+      }
+    },
+    {
+      "id": "genziana",
+      "category": "alcol",
+      "name": "Genziana o Centerbe",
+      "price": 4,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Centerba.jpg/960px-Centerba.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [],
+      "tag": {
+        "it": "Digestivo",
+        "en": "Digestif"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Liquori tipici abruzzesi",
+        "en": "Traditional Abruzzo liqueurs"
+      },
+      "cartNote": {
+        "it": "Bicchierino",
+        "en": "Shot glass"
+      },
+      "description": {
+        "it": "Un bicchierino di Genziana o di Centerbe, i digestivi tradizionali abruzzesi.",
+        "en": "A shot of Genziana or Centerbe, the traditional Abruzzo digestifs."
+      }
+    },
+    {
+      "id": "pizzette",
+      "category": "snack",
+      "name": "Pizzetta Rossa",
+      "price": 2.5,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Due_pizzette.jpg/960px-Due_pizzette.jpg",
+      "featured": true,
+      "badge": "local",
+      "allergens": [
+        "glutine"
+      ],
+      "tag": {
+        "it": "Forno",
+        "en": "Bakery"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Pomodoro e origano, appena sfornata",
+        "en": "Tomato and oregano, fresh from the oven"
+      },
+      "cartNote": {
+        "it": "Appena sfornata",
+        "en": "Fresh from the oven"
+      },
+      "description": {
+        "it": "La pizzetta rossa da forno, classico pescarese: pomodoro, origano e olio. Prezzo a pezzo, ordinane quante vuoi.",
+        "en": "The classic Pescara bakery pizzetta: tomato, oregano and olive oil. Priced per piece, order as many as you like."
+      }
+    },
+    {
+      "id": "porchetta",
+      "category": "snack",
+      "name": "Panino con Porchetta",
+      "price": 6.5,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Panino_con_porchetta_02.jpg/960px-Panino_con_porchetta_02.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine"
+      ],
+      "tag": {
+        "it": "Abruzzo",
+        "en": "Abruzzo"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Porchetta abruzzese in pagnotta",
+        "en": "Abruzzo porchetta in a crusty roll"
+      },
+      "cartNote": {
+        "it": "Pagnotta croccante",
+        "en": "Crusty roll"
+      },
+      "description": {
+        "it": "Porchetta abruzzese tagliata al coltello in una pagnotta croccante.",
+        "en": "Hand-sliced Abruzzo porchetta in a crusty bread roll."
+      }
+    },
+    {
+      "id": "pallotte",
+      "category": "snack",
+      "name": "Pallotte Cacio e Ova (4 pz)",
+      "price": 6.5,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Pallotte_cacio_e_ovo.jpg/960px-Pallotte_cacio_e_ovo.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine",
+        "latte",
+        "uova"
+      ],
+      "tag": {
+        "it": "Vegetariano",
+        "en": "Vegetarian"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Polpette di formaggio e uova al sugo",
+        "en": "Cheese and egg balls in tomato sauce"
+      },
+      "cartNote": {
+        "it": "Al sugo",
+        "en": "In tomato sauce"
+      },
+      "description": {
+        "it": "Polpette di pecorino, uova e pane, fritte e poi passate nel sugo di pomodoro.",
+        "en": "Pecorino, egg and breadcrumb balls, fried and finished in tomato sauce."
+      }
+    },
+    {
+      "id": "arrosticini",
+      "category": "snack",
+      "name": "Arrosticini di Pecora (10 pz)",
+      "price": 13,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Arrosticini_abruzzesi_01.jpg/960px-Arrosticini_abruzzesi_01.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [],
+      "tag": {
+        "it": "Abruzzo",
+        "en": "Abruzzo"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Alla brace, con pane e olio",
+        "en": "Chargrilled, with bread and oil"
+      },
+      "cartNote": {
+        "it": "Con pane e olio",
+        "en": "With bread and oil"
+      },
+      "description": {
+        "it": "Spiedini di pecora cotti sulla canala, serviti con pane casereccio condito con olio.",
+        "en": "Mutton skewers grilled over coals, served with country bread and olive oil."
+      }
+    },
+    {
+      "id": "paranza",
+      "category": "snack",
+      "name": "Cono di Paranza e Calamari",
+      "price": 9,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Fritto_misto_di_pesce_con_limone.jpg/960px-Fritto_misto_di_pesce_con_limone.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine",
+        "pesce",
+        "molluschi"
+      ],
+      "tag": {
+        "it": "Fritto",
+        "en": "Fried"
+      },
+      "tagColor": "blue",
+      "shortDescription": {
+        "it": "Pesce dell'Adriatico fritto",
+        "en": "Fried Adriatic fish"
+      },
+      "cartNote": {
+        "it": "Con limone",
+        "en": "With lemon"
+      },
+      "description": {
+        "it": "Frittura di paranza e anelli di calamaro dell'Adriatico, servita nel cono con limone.",
+        "en": "Fried small Adriatic fish and squid rings, served in a paper cone with lemon."
+      }
+    },
+    {
+      "id": "panino",
+      "category": "snack",
+      "name": "Panino Caprese con Bufala",
+      "price": 7.5,
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAxxunlFinq9w_61yyzyrASkHw1RFcZ6P1L2XqkK_OW4GOk7mgSMNd39CKqk60ht_-uAySvUQymtCe32reb88jjx5KccMjABpgaScLdJXj8AU1tD_RNlvDxBr1rhoxm0WQVIT_9WPre1lB_s-43pRXMx4pdIo9G1wEC2Vw3v6fUgz5mTWq1-1NNqd8SebZTR_RK3AR6urnIe-7s0e87yQvwgT87dBzElVgWXYvmXmLo942haFCiQKEzjA",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine",
+        "latte"
+      ],
+      "tag": {
+        "it": "Vegetariano",
+        "en": "Vegetarian"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Focaccia calda",
+        "en": "Warm focaccia"
+      },
+      "cartNote": {
+        "it": "Focaccia calda, senza origano",
+        "en": "Warm focaccia, no oregano"
+      },
+      "description": {
+        "it": "Focaccia calda con mozzarella di bufala DOP, pomodoro e basilico.",
+        "en": "Warm focaccia with DOP buffalo mozzarella, tomato and basil."
+      }
+    },
+    {
+      "id": "brodetto",
+      "category": "cucina",
+      "name": "Brodetto alla Pescarese",
+      "price": 18,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Foto_brodetto_.jpg/960px-Foto_brodetto_.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "pesce",
+        "crostacei",
+        "molluschi"
+      ],
+      "tag": {
+        "it": "Pescato",
+        "en": "Catch"
+      },
+      "tagColor": "blue",
+      "shortDescription": {
+        "it": "Zuppa di pesce con peperone dolce",
+        "en": "Fish stew with sweet pepper"
+      },
+      "cartNote": {
+        "it": "Con pane tostato",
+        "en": "With toasted bread"
+      },
+      "description": {
+        "it": "Zuppa di pesce dell'Adriatico con pomodoro e peperone dolce, servita con pane tostato.",
+        "en": "Adriatic fish stew with tomato and sweet pepper, served with toasted bread."
+      }
+    },
+    {
+      "id": "chitarra",
+      "category": "cucina",
+      "name": "Chitarrina allo Scoglio",
+      "price": 15,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Spaghetti_ai_frutti_di_mare.jpg/960px-Spaghetti_ai_frutti_di_mare.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine",
+        "uova",
+        "molluschi",
+        "crostacei"
+      ],
+      "tag": {
+        "it": "Pasta fresca",
+        "en": "Fresh pasta"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Pasta alla chitarra, cozze e vongole",
+        "en": "Chitarra pasta, mussels and clams"
+      },
+      "cartNote": {
+        "it": "Cozze, vongole, gamberi",
+        "en": "Mussels, clams, prawns"
+      },
+      "description": {
+        "it": "Spaghetti alla chitarra fatti a mano con cozze, vongole e gamberi.",
+        "en": "Hand-cut chitarra spaghetti with mussels, clams and prawns."
+      }
+    },
+    {
+      "id": "parrozzo",
+      "category": "dolci",
+      "name": "Parrozzo (fetta)",
+      "price": 4,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Parrozzo_abruzzo.jpg/960px-Parrozzo_abruzzo.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "frutta",
+        "uova"
+      ],
+      "tag": {
+        "it": "Pescara",
+        "en": "Pescara"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Dolce di mandorle e cioccolato",
+        "en": "Almond cake with chocolate"
+      },
+      "cartNote": {
+        "it": "Fetta",
+        "en": "Slice"
+      },
+      "description": {
+        "it": "Il dolce simbolo di Pescara: mandorle, uova e copertura di cioccolato fondente.",
+        "en": "Pescara's signature cake: almonds, eggs and a dark chocolate coating."
+      }
+    },
+    {
+      "id": "bocconotti",
+      "category": "dolci",
+      "name": "Bocconotti (2 pz)",
+      "price": 3.5,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Bocconotti.jpg/960px-Bocconotti.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine",
+        "uova",
+        "latte",
+        "frutta"
+      ],
+      "tag": {
+        "it": "Abruzzo",
+        "en": "Abruzzo"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Frolla con cioccolato e mandorle",
+        "en": "Shortcrust with chocolate and almonds"
+      },
+      "cartNote": {
+        "it": "2 pezzi",
+        "en": "2 pieces"
+      },
+      "description": {
+        "it": "Pasta frolla ripiena di cioccolato, mandorle e cannella.",
+        "en": "Shortcrust filled with chocolate, almonds and cinnamon."
+      }
+    },
+    {
+      "id": "ferratelle",
+      "category": "dolci",
+      "name": "Ferratelle con Nutella",
+      "price": 3,
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Pizzelle_in_a_loose_stack%2C_April_2010.jpg/960px-Pizzelle_in_a_loose_stack%2C_April_2010.jpg",
+      "featured": false,
+      "badge": null,
+      "allergens": [
+        "glutine",
+        "uova",
+        "latte",
+        "frutta"
+      ],
+      "tag": {
+        "it": "Tradizione",
+        "en": "Traditional"
+      },
+      "tagColor": "amber",
+      "shortDescription": {
+        "it": "Cialde abruzzesi",
+        "en": "Abruzzo waffle wafers"
+      },
+      "cartNote": {
+        "it": "Con Nutella",
+        "en": "With Nutella"
+      },
+      "description": {
+        "it": "Ferratelle (pizzelle) cotte sul ferro, farcite con Nutella.",
+        "en": "Ferratelle (pizzelle) cooked on the iron, filled with Nutella."
+      }
+    }
+  ]
+}

@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0&amp;display=block" rel="stylesheet">
+<style>
+body{margin:0;background:#e9ecf5;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#131b2e;-webkit-font-smoothing:antialiased}
+a{color:#006194;text-decoration:none}a:hover{color:#004b73}
+.material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;-webkit-font-feature-settings:'liga';font-feature-settings:'liga'}
+[data-dark="1"] img{filter:invert(1) hue-rotate(180deg)}
+@keyframes lidoSpin{to{transform:rotate(360deg)}}
+@keyframes lidoPing{75%,100%{transform:scale(2.2);opacity:0}}
+@keyframes lidoUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+input,textarea,button{font-family:inherit}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;box-sizing:border-box">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ darkFrame }}" hint-size="402px,874px">
+<div style="height:100%;position:relative;display:flex;flex-direction:column;background:#faf8ff;overflow:hidden;filter:{{ sunFilter }}" data-dark="{{ darkAttr }}">
+
+<!-- HEADER: menu -->
+<sc-if value="{{ showMenuHeader }}" hint-placeholder-val="{{ true }}">
+<header style="padding:54px 16px 10px;background:rgba(250,248,255,0.95);border-bottom:1px solid rgba(226,231,255,0.6);box-shadow:0 1px 8px rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:10px;flex-shrink:0;z-index:5">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<div style="display:flex;align-items:center;gap:10px;min-width:0">
+<img alt="Traghetto Blu" src="https://lh3.googleusercontent.com/aida/AEtjO1WgrCpTKrWjkGH5I1ZNTRzS9uefN4coNwtFOBY2CuEc2tBSr544hY9KuurvgoTClZmbaa4DTTkb2srijeBKS2HjJo5IEXZB33-BU6_ZoWc4cUji2ka7eXmCBucMQsG6aZQPLcHXVzV8zHYBATXuWzDpVpkGzi-RLQJrW8hO2Y_1kamzALr19rRb0YHCc-mWNnd-FxIp8vqVKYi298KZOzZBJo2PaLdWM4pzekLZrmLDu_MZF-gu_7D4unfC" style="width:36px;height:36px;object-fit:contain;border-radius:9999px;background:#e2e7ff;padding:2px;box-sizing:border-box;flex-shrink:0">
+<div style="display:flex;flex-direction:column;min-width:0">
+<span style="font-size:20px;font-weight:700;color:#006194;line-height:1;letter-spacing:-0.01em">Il Traghetto Blu</span>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+<button onClick="{{ goCart }}" aria-label="Carrello" style="position:relative;width:36px;height:36px;border:0;cursor:pointer;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:#eaedff;color:#3f4850"><span class="material-symbols-outlined" style="font-size:20px">shopping_bag</span><sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:9999px;background:#fea619;box-shadow:0 0 0 2px #faf8ff"></span></sc-if></button>
+<button onClick="{{ goProfile }}" aria-label="Profilo e impostazioni" style="width:36px;height:36px;border:0;cursor:pointer;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:{{ avatar.bg }};color:{{ avatar.fg }};font-size:13px;font-weight:800"><sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">{{ avatar.initials }}</sc-if><sc-if value="{{ loggedOut }}" hint-placeholder-val="{{ true }}"><span class="material-symbols-outlined" style="font-size:22px">account_circle</span></sc-if></button>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:6px">
+<span style="display:inline-flex;align-items:center;gap:6px;background:#131b2e;color:#fff;border-radius:9999px;padding:6px 12px;font-size:12px;font-weight:700;letter-spacing:0.02em;font-variant-numeric:tabular-nums"><span class="material-symbols-outlined" style="font-size:16px">beach_access</span>{{ t.umbrella }}</span>
+</div>
+</header>
+</sc-if>
+
+<!-- HEADER: sub pages -->
+<sc-if value="{{ showSubHeader }}" hint-placeholder-val="{{ false }}">
+<header style="padding:54px 16px 10px;background:rgba(250,248,255,0.95);box-shadow:0 1px 8px rgba(0,0,0,0.04);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;z-index:5">
+<div style="display:flex;align-items:center;gap:8px;min-width:0">
+<sc-if value="{{ showBack }}" hint-placeholder-val="{{ true }}"><button onClick="{{ goBack }}" aria-label="Indietro" style="width:40px;height:40px;border:0;cursor:pointer;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:#f2f3ff;color:#131b2e"><span class="material-symbols-outlined" style="font-size:18px">arrow_back_ios_new</span></button></sc-if>
+<span class="material-symbols-outlined" style="font-size:24px;color:#006194">{{ subIcon }}</span>
+<h1 style="margin:0;font-size:18px;font-weight:700;line-height:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ subTitle }}</h1>
+</div>
+<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+<span style="display:flex;align-items:center;gap:4px;background:#f2f3ff;border:1px solid rgba(191,199,210,0.3);padding:6px 10px;border-radius:9999px;font-size:11px;font-weight:700;color:#3f4850"><span class="material-symbols-outlined" style="font-size:14px;color:#006947">support_agent</span>{{ t.help }}</span>
+<button onClick="{{ goProfile }}" aria-label="Profilo e impostazioni" style="width:36px;height:36px;border:0;cursor:pointer;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:{{ avatar.bg }};color:{{ avatar.fg }};font-size:13px;font-weight:800"><sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">{{ avatar.initials }}</sc-if><sc-if value="{{ loggedOut }}" hint-placeholder-val="{{ true }}"><span class="material-symbols-outlined" style="font-size:22px">account_circle</span></sc-if></button>
+</div>
+</header>
+</sc-if>
+
+<div ref="{{ scrollRef }}" style="flex:1;overflow-y:auto;overflow-x:hidden;position:relative">
+
+<!-- ============ MENU ============ -->
+<sc-if value="{{ isMenu }}" hint-placeholder-val="{{ true }}">
+<div style="padding:16px 16px 190px;display:flex;flex-direction:column;gap:16px">
+<div style="position:relative;overflow:hidden;background:#006194;color:#fff;border-radius:12px;padding:16px;box-shadow:0 4px 12px rgba(0,97,148,0.2)">
+<div style="position:absolute;right:-24px;bottom:-24px;width:112px;height:112px;background:rgba(0,123,185,0.5);border-radius:9999px;filter:blur(20px)"></div>
+<div style="display:flex;align-items:flex-start;gap:10px;position:relative">
+<div style="width:40px;height:40px;border-radius:9999px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:22px;color:#ffddb8;font-variation-settings:'FILL' 1">wb_sunny</span></div>
+<div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+<span style="font-size:14px;font-weight:700;letter-spacing:0.02em">{{ t.greet }}</span>
+<span style="display:inline-flex;align-items:center;gap:5px;background:#00855b;color:#f5fff6;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600">{{ pingDot }}{{ t.activeUntil }}</span>
+</div>
+<p style="margin:0;font-size:14px;line-height:20px;color:#cce5ff;text-wrap:pretty">{{ t.greetBody }} <b style="color:#fff">12 min</b>.</p>
+</div>
+</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:8px">
+<div style="position:relative;flex:1">
+<span class="material-symbols-outlined" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:20px;color:#707881;pointer-events:none">search</span>
+<input type="search" value="{{ search }}" onChange="{{ onSearch }}" placeholder="{{ t.searchPh }}" style="width:100%;height:52px;box-sizing:border-box;padding:0 16px 0 44px;background:#fff;border:2px solid transparent;border-radius:12px;font-size:14px;font-weight:500;color:#131b2e;outline:none;box-shadow:0 1px 3px rgba(15,23,42,0.06)" style-focus="border-color:#006194;box-shadow:0 0 0 4px rgba(2,132,199,0.15)">
+</div>
+<button onClick="{{ openAllergens }}" aria-label="Allergeni" style="height:52px;padding:0 14px;border:0;cursor:pointer;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;align-items:center;gap:6px;color:#855300">
+<span class="material-symbols-outlined" style="font-size:20px">tune</span>
+<sc-if value="{{ hasAllergenFilter }}" hint-placeholder-val="{{ false }}"><span style="min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:9999px;background:#fea619;color:#684000;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">{{ excludedCount }}</span></sc-if>
+<sc-if value="{{ noAllergenFilter }}" hint-placeholder-val="{{ true }}"><span style="width:8px;height:8px;border-radius:9999px;background:#fea619"></span></sc-if>
+</button>
+</div>
+
+<nav style="position:sticky;top:0;z-index:4;margin:0 -16px;padding:10px 16px;background:rgba(250,248,255,0.95);overflow-x:auto;scrollbar-width:none">
+<div style="display:flex;align-items:center;gap:6px;width:max-content">
+<sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.select }}" style="height:40px;padding:0 16px;border:0;cursor:pointer;border-radius:9999px;display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:0.04em;box-shadow:0 1px 3px rgba(15,23,42,0.06);background:{{ c.bg }};color:{{ c.fg }}"><span class="material-symbols-outlined" style="font-size:18px">{{ c.icon }}</span>{{ c.label }}</button>
+</sc-for>
+</div>
+</nav>
+
+<sc-if value="{{ hasAllergenFilter }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;background:#ffddb8;color:#2a1700;border-radius:12px;padding:10px 12px;font-size:12px;font-weight:700;letter-spacing:0.02em">
+<span style="display:flex;align-items:center;gap:6px"><span class="material-symbols-outlined" style="font-size:18px">health_and_safety</span>{{ excludedText }}</span>
+<button onClick="{{ clearAllergens }}" style="border:0;background:transparent;color:#653e00;font-size:12px;font-weight:800;cursor:pointer;text-decoration:underline">{{ t.reset }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+<section style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;justify-content:space-between;padding-top:4px">
+<div style="display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="font-size:24px;color:#855300;font-variation-settings:'FILL' 1">local_fire_department</span><h2 style="margin:0;font-size:20px;font-weight:700;line-height:28px">{{ t.featuredTitle }}</h2></div>
+<span style="font-size:11px;font-weight:700;color:#855300;text-transform:uppercase;letter-spacing:0.06em;background:rgba(255,221,184,0.6);padding:4px 10px;border-radius:9999px;white-space:nowrap">Top Lido</span>
+</div>
+<sc-for list="{{ featured }}" as="p" hint-placeholder-count="2">
+<article onClick="{{ p.open }}" style="background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;box-shadow:0 4px 20px -2px rgba(15,23,42,0.08),0 2px 6px -1px rgba(245,158,11,0.05)">
+<div style="position:relative;height:176px;background:#eaedff">
+<sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+<sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:{{ p.tileBg }};color:#131b2e"><span class="material-symbols-outlined" style="font-size:72px;font-variation-settings:'FILL' 1;opacity:0.8">{{ p.icon }}</span></div></sc-if>
+<span style="position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:9999px;font-size:12px;font-weight:700;letter-spacing:0.02em;box-shadow:0 1px 3px rgba(0,0,0,0.12);background:{{ p.badgeBg }};color:{{ p.badgeFg }}"><span class="material-symbols-outlined" style="font-size:15px;font-variation-settings:'FILL' 1">{{ p.badgeIcon }}</span>{{ p.badge }}</span>
+<span style="position:absolute;bottom:12px;right:12px;background:rgba(255,255,255,0.95);padding:4px 12px;border-radius:9999px;font-size:20px;font-weight:700;color:#006194;box-shadow:0 4px 10px rgba(0,0,0,0.12)">{{ p.priceText }}</span>
+</div>
+<div style="padding:14px 16px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+<div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+<h3 style="margin:0;font-size:18px;font-weight:700;line-height:24px">{{ p.name }}</h3>
+<span style="font-size:12px;font-weight:500;color:#3f4850">{{ p.desc }}</span>
+</div>
+<sc-if value="{{ p.notInCart }}" hint-placeholder-val="{{ true }}"><button onClick="{{ p.add }}" aria-label="Aggiungi" style="width:48px;height:48px;flex-shrink:0;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,97,148,0.3)" style-active="transform:scale(0.95)"><span class="material-symbols-outlined" style="font-size:26px">add</span></button></sc-if>
+<sc-if value="{{ p.inCart }}" hint-placeholder-val="{{ false }}"><div onClick="{{ stop }}" style="display:flex;align-items:center;gap:2px;border:1px solid #e2e7ff;border-radius:9999px;padding:2px;flex-shrink:0;cursor:default"><button onClick="{{ p.dec }}" aria-label="Rimuovi" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#fff;color:#131b2e;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(15,23,42,0.1)"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">{{ p.decIcon }}</span></button><span style="min-width:22px;text-align:center;font-size:16px;font-weight:800;font-variant-numeric:tabular-nums">{{ p.qty }}</span><button onClick="{{ p.add }}" aria-label="Aggiungi" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">add</span></button></div></sc-if>
+</div>
+</article>
+</sc-for>
+</section>
+</sc-if>
+
+<sc-for list="{{ sections }}" as="s" hint-placeholder-count="2">
+<section style="display:flex;flex-direction:column;gap:8px;padding-top:8px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+<div style="display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="font-size:24px;color:#006194">{{ s.icon }}</span><h2 style="margin:0;font-size:20px;font-weight:700;line-height:28px">{{ s.title }}</h2></div>
+<span style="font-size:12px;font-weight:700;color:#006194;letter-spacing:0.02em">{{ s.countText }}</span>
+</div>
+<sc-for list="{{ s.items }}" as="p" hint-placeholder-count="3">
+<article onClick="{{ p.open }}" style="padding:12px;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;align-items:center;gap:14px;cursor:pointer">
+<div style="width:64px;height:64px;border-radius:12px;overflow:hidden;flex-shrink:0;background:{{ p.tileBg }};display:flex;align-items:center;justify-content:center"><sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if><sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}"><span class="material-symbols-outlined" style="font-size:30px;color:#131b2e;opacity:0.8;font-variation-settings:'FILL' 1">{{ p.icon }}</span></sc-if></div>
+<div style="display:flex;flex-direction:column;flex:1;min-width:0;gap:6px">
+<h3 style="margin:0;font-size:14px;font-weight:700;letter-spacing:0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.name }}</h3>
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:9999px;white-space:nowrap;background:{{ p.tagBg }};color:{{ p.tagFg }}">{{ p.tag }}</span>
+<span style="font-size:18px;font-weight:700;color:#006194">{{ p.priceText }}</span>
+</div>
+</div>
+<sc-if value="{{ p.notInCart }}" hint-placeholder-val="{{ true }}"><button onClick="{{ p.add }}" aria-label="Aggiungi" style="width:44px;height:44px;flex-shrink:0;border:0;cursor:pointer;border-radius:9999px;background:#e2e7ff;color:#006194;display:flex;align-items:center;justify-content:center" style-hover="background:#006194;color:#fff" style-active="transform:scale(0.95)"><span class="material-symbols-outlined" style="font-size:22px">add</span></button></sc-if>
+<sc-if value="{{ p.inCart }}" hint-placeholder-val="{{ false }}"><div onClick="{{ stop }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;cursor:default"><div style="display:flex;align-items:center;gap:2px;border:1px solid #e2e7ff;border-radius:9999px;padding:2px"><button onClick="{{ p.dec }}" aria-label="Rimuovi" style="width:40px;height:40px;border:0;cursor:pointer;border-radius:9999px;background:#fff;color:#131b2e;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(15,23,42,0.1)"><span class="material-symbols-outlined" style="font-size:19px;font-weight:700">{{ p.decIcon }}</span></button><span style="min-width:20px;text-align:center;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums">{{ p.qty }}</span><button onClick="{{ p.add }}" aria-label="Aggiungi" style="width:40px;height:40px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:19px;font-weight:700">add</span></button></div></div></sc-if>
+</article>
+</sc-for>
+</section>
+</sc-for>
+
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<div style="padding:40px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
+<span class="material-symbols-outlined" style="font-size:40px;color:#707881">search_off</span>
+<span style="font-size:18px;font-weight:700">{{ t.noResults }}</span>
+<span style="font-size:14px;color:#3f4850;max-width:260px">{{ t.noResultsSub }}</span>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ============ CART ============ -->
+<sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px 16px 40px;display:flex;flex-direction:column;gap:16px">
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);border:1px solid rgba(191,199,210,0.3);display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+<div style="display:flex;align-items:flex-start;gap:12px;min-width:0">
+<div style="width:48px;height:48px;border-radius:16px;background:#cce5ff;color:#006194;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:26px">beach_access</span></div>
+<div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#006194">{{ t.delivery }}</span>
+<span style="font-size:18px;font-weight:700;line-height:24px">{{ t.umbrella }}</span>
+<span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:#3f4850"><span style="width:7px;height:7px;border-radius:9999px;background:#00855b;flex-shrink:0"></span>{{ t.sector }}</span>
+</div>
+</div>
+<button onClick="{{ goProfile }}" style="border:1px solid rgba(191,199,210,0.6);background:#f2f3ff;color:#006194;border-radius:9999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0">{{ t.edit }}</button>
+</div>
+<div style="border-top:1px solid #e2e7ff;padding-top:10px;display:flex;align-items:center;gap:8px">
+<span class="material-symbols-outlined" style="font-size:18px;color:#006947">timer</span>
+<span style="font-size:12px;font-weight:700;color:#006947">{{ t.eta }}</span>
+<span style="font-size:12px;color:#3f4850">{{ t.etaSub }}</span>
+</div>
+</div>
+
+<sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<h2 style="margin:0;font-size:24px;font-weight:700;letter-spacing:-0.01em">{{ yourOrderTitle }}</h2>
+<span style="display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(191,199,210,0.6);background:#f2f3ff;color:#006947;border-radius:9999px;padding:6px 12px;font-size:12px;font-weight:700"><span class="material-symbols-outlined" style="font-size:15px">bolt</span>{{ t.fast }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="3">
+<article style="background:#fff;border-radius:16px;padding:10px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;gap:12px">
+<div style="width:92px;height:92px;border-radius:12px;overflow:hidden;flex-shrink:0;background:{{ l.tileBg }};display:flex;align-items:center;justify-content:center"><sc-if value="{{ l.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ l.img }}" alt="{{ l.name }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if><sc-if value="{{ l.noImg }}" hint-placeholder-val="{{ true }}"><span class="material-symbols-outlined" style="font-size:40px;color:#131b2e;opacity:0.8;font-variation-settings:'FILL' 1">{{ l.icon }}</span></sc-if></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+<div style="display:flex;justify-content:space-between;gap:6px"><span style="font-size:15px;font-weight:700;line-height:20px">{{ l.name }}</span><span style="font-size:18px;font-weight:700;color:#006194;white-space:nowrap">{{ l.lineText }}</span></div>
+<span style="font-size:12px;color:#3f4850">{{ l.desc }}</span>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:6px">
+<span style="font-size:12px;color:#707881">{{ l.eachText }}</span>
+<div style="display:flex;align-items:center;gap:4px;border:1px solid #e2e7ff;border-radius:9999px;padding:2px">
+<button onClick="{{ l.dec }}" aria-label="Meno" style="width:40px;height:40px;border:0;cursor:pointer;border-radius:9999px;background:#fff;color:#131b2e;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(15,23,42,0.1)"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">{{ l.decIcon }}</span></button>
+<span style="min-width:24px;text-align:center;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums">{{ l.qty }}</span>
+<button onClick="{{ l.inc }}" aria-label="Più" style="width:40px;height:40px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">add</span></button>
+</div>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:10px">
+<span style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700"><span class="material-symbols-outlined" style="font-size:20px;color:#006194">edit_note</span>{{ t.notes }}</span>
+<textarea value="{{ notes }}" onChange="{{ onNotes }}" placeholder="{{ t.notesPh }}" rows="2" style="resize:none;border:2px solid #e2e7ff;background:#f2f3ff;border-radius:12px;padding:10px 12px;font-size:14px;color:#131b2e;outline:none" style-focus="border-color:#006194;background:#fff"></textarea>
+<span style="display:flex;align-items:center;gap:6px;font-size:12px;color:#3f4850"><span class="material-symbols-outlined" style="font-size:16px;color:#006194">room_service</span>{{ t.notesHint }}</span>
+</div>
+
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<span style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700"><span class="material-symbols-outlined" style="font-size:22px;color:#fea619">volunteer_activism</span>{{ t.tip }}</span>
+<span style="background:#d4fbe7;color:#005236;border-radius:9999px;padding:3px 10px;font-size:11px;font-weight:700">{{ t.tipBadge }}</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px">
+<sc-for list="{{ tips }}" as="tp" hint-placeholder-count="4">
+<button onClick="{{ tp.select }}" style="height:44px;border-radius:12px;cursor:pointer;font-size:13px;font-weight:700;border:1px solid {{ tp.border }};background:{{ tp.bg }};color:{{ tp.fg }}">{{ tp.label }}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:10px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.summary }}</span>
+<div style="display:flex;justify-content:space-between;font-size:15px"><span>{{ subtotalLabel }}</span><b>{{ subtotalText }}</b></div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:15px"><span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">{{ t.service }}<span style="background:#4edea3;color:#002113;border-radius:9999px;padding:2px 8px;font-size:11px;font-weight:700">{{ t.promo }}</span></span><b style="color:#006947;white-space:nowrap">{{ t.free }}</b></div>
+<div style="display:flex;justify-content:space-between;font-size:15px"><span>{{ t.tipRow }}</span><b>{{ tipText }}</b></div>
+<div style="border-top:1px solid #e2e7ff;padding-top:12px;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.total }}</span>
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:38px;font-weight:800;letter-spacing:-0.02em;color:#006194;line-height:48px">{{ totalText }}</span><span style="display:flex;align-items:center;gap:4px;background:#eaedff;border-radius:9999px;padding:6px 12px;font-size:12px;font-weight:700"><span class="material-symbols-outlined" style="font-size:16px;color:#006947">check_circle</span>{{ t.vat }}</span></div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-if value="{{ hasSavedCard }}" hint-placeholder-val="{{ false }}"><button onClick="{{ pay }}" style="height:56px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 20px 40px -6px rgba(0,97,148,0.35)" style-active="transform:scale(0.98)"><span class="material-symbols-outlined" style="font-size:22px">credit_card</span>{{ savedCardPay }}</button></sc-if>
+<button onClick="{{ pay }}" style="height:56px;border:0;cursor:pointer;border-radius:9999px;background:#131b2e;color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 20px 40px -6px rgba(15,23,42,0.3)" style-active="transform:scale(0.98)">{{ t.payWallet }}<span style="background:#007bb9;border-radius:9999px;padding:2px 8px;font-size:12px;font-weight:800">1-Tap</span></button>
+<button onClick="{{ pay }}" style="height:52px;cursor:pointer;border-radius:9999px;background:#fff;border:2px solid #e2e8f0;color:#131b2e;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px" style-active="transform:scale(0.98)"><span class="material-symbols-outlined" style="font-size:22px;color:#006194">credit_card</span>{{ t.payCard }}</button>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding-top:4px">
+<span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#006947"><span class="material-symbols-outlined" style="font-size:16px">lock</span>{{ t.secure }}</span>
+<span style="font-size:12px;color:#3f4850">{{ t.noReg }}</span>
+<sc-if value="{{ loggedOut }}" hint-placeholder-val="{{ true }}"><button onClick="{{ goProfile }}" style="border:0;background:transparent;color:#006194;font-size:13px;font-weight:700;cursor:pointer;padding:6px">{{ t.loginSave }}</button></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ emptyCart }}" hint-placeholder-val="{{ false }}">
+<div style="padding:48px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
+<span class="material-symbols-outlined" style="font-size:48px;color:#707881">shopping_bag</span>
+<span style="font-size:20px;font-weight:700">{{ t.emptyCart }}</span>
+<button onClick="{{ goMenu }}" style="margin-top:8px;height:52px;padding:0 28px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:14px;font-weight:700;letter-spacing:0.02em">{{ t.backMenu }}</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ============ SUCCESS ============ -->
+<sc-if value="{{ isSuccess }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100%;box-sizing:border-box;padding:100px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;background:#faf8ff">
+<div style="width:96px;height:96px;border-radius:9999px;background:#00855b;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(0,133,91,0.12)"><span class="material-symbols-outlined" style="font-size:56px;font-weight:700">check</span></div>
+<h1 style="margin:12px 0 0;font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:40px">{{ t.success }}</h1>
+<p style="margin:0;font-size:15px;line-height:22px;color:#3f4850;max-width:300px;text-wrap:pretty">{{ t.successSub }}</p>
+<div style="width:100%;background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 20px -2px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:12px;text-align:left;margin-top:8px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.orderNo }}</span><span style="background:#131b2e;color:#fff;border-radius:9999px;padding:4px 12px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums">{{ myOrder.code }}</span></div>
+<div style="display:flex;justify-content:space-between;font-size:15px"><span>{{ t.umbrella }}</span></div>
+<div style="display:flex;justify-content:space-between;font-size:15px"><span>{{ t.etaLabel }}</span><b>~12 min</b></div>
+<div style="display:flex;justify-content:space-between;font-size:15px;border-top:1px solid #e2e7ff;padding-top:12px"><span>{{ t.paid }}</span><b style="color:#006194">{{ myOrder.totalText }}</b></div>
+</div>
+<div style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-top:16px">
+<button onClick="{{ goOrders }}" style="height:52px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px"><span class="material-symbols-outlined" style="font-size:22px">moped</span>{{ t.track }}</button>
+<button onClick="{{ goMenu }}" style="height:52px;cursor:pointer;border-radius:9999px;background:#fff;border:2px solid #e2e8f0;color:#131b2e;font-size:15px;font-weight:600">{{ t.keep }}</button>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ ORDERS ============ -->
+<sc-if value="{{ isOrders }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 16px 120px;display:flex;flex-direction:column;gap:16px">
+<sc-if value="{{ hasActive }}" hint-placeholder-val="{{ true }}">
+<div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px -2px rgba(15,23,42,0.06)">
+<div style="background:#006194;color:#fff;padding:18px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+<div style="display:flex;flex-direction:column;gap:2px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#cce5ff">{{ activeHeadLabel }}</span>
+<span style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:40px">{{ activeHead }}</span>
+</div>
+<span style="background:rgba(255,255,255,0.15);border-radius:9999px;padding:6px 12px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums">{{ activeOrder.code }}</span>
+</div>
+<div style="padding:16px;display:flex;flex-direction:column;gap:0">
+<sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+<div style="display:flex;gap:12px;align-items:stretch">
+<div style="display:flex;flex-direction:column;align-items:center;width:28px">
+<span style="width:28px;height:28px;border-radius:9999px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:{{ st.dotBg }};color:{{ st.dotFg }};box-shadow:{{ st.ring }}"><span class="material-symbols-outlined" style="font-size:16px;font-weight:700">{{ st.icon }}</span></span>
+<span style="flex:1;width:2px;min-height:18px;background:{{ st.lineBg }}"></span>
+</div>
+<div style="display:flex;flex-direction:column;padding:3px 0 16px">
+<span style="font-size:15px;font-weight:700;color:{{ st.fg }}">{{ st.label }}</span>
+<span style="font-size:12px;color:#3f4850">{{ st.sub }}</span>
+</div>
+</div>
+</sc-for>
+<div style="display:flex;align-items:center;gap:12px;background:#f2f3ff;border-radius:12px;padding:12px">
+<div style="width:40px;height:40px;border-radius:9999px;background:#fea619;color:#684000;display:flex;align-items:center;justify-content:center;font-weight:800">M</div>
+<div style="flex:1;display:flex;flex-direction:column"><span style="font-size:14px;font-weight:700">Marco</span><span style="font-size:12px;color:#3f4850">{{ t.runnerLine }}</span></div>
+<button style="width:44px;height:44px;border:0;border-radius:9999px;background:#fff;color:#006194;display:flex;align-items:center;justify-content:center;cursor:pointer"><span class="material-symbols-outlined" style="font-size:22px">chat</span></button>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;margin-top:14px;border-top:1px solid #e2e7ff;padding-top:14px">
+<sc-for list="{{ activeOrder.lines }}" as="ol" hint-placeholder-count="2">
+<div style="display:flex;justify-content:space-between;font-size:14px"><span>{{ ol.label }}</span><span style="font-weight:600">{{ ol.priceText }}</span></div>
+</sc-for>
+<div style="display:flex;justify-content:space-between;font-size:15px;font-weight:800;padding-top:6px"><span>{{ t.paid }}</span><span style="color:#006194">{{ activeOrder.totalText }}</span></div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ noActive }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:16px;padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
+<span class="material-symbols-outlined" style="font-size:44px;color:#006194">moped</span>
+<span style="font-size:18px;font-weight:700">{{ t.emptyOrders }}</span>
+<span style="font-size:14px;color:#3f4850;max-width:260px">{{ t.emptyOrdersSub }}</span>
+<button onClick="{{ goMenu }}" style="margin-top:8px;height:48px;padding:0 24px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:14px;font-weight:700">{{ t.backMenu }}</button>
+</div>
+</sc-if>
+<h2 style="margin:8px 0 0;font-size:18px;font-weight:700">{{ t.past }}</h2>
+<sc-for list="{{ pastOrders }}" as="po" hint-placeholder-count="1">
+<div style="background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;align-items:center;gap:12px">
+<div style="width:40px;height:40px;border-radius:9999px;background:#d4fbe7;color:#006947;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:20px">check</span></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;font-weight:700">{{ po.code }} · {{ po.time }}</span><span style="font-size:12px;color:#3f4850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ po.summary }}</span></div>
+<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><b style="font-size:14px">{{ po.totalText }}</b><button onClick="{{ po.reorder }}" style="border:0;background:transparent;color:#006194;font-size:12px;font-weight:700;cursor:pointer;padding:0">{{ t.reorder }}</button></div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<!-- ============ INFO LIDO ============ -->
+<sc-if value="{{ isInfo }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 16px 120px;display:flex;flex-direction:column;gap:16px">
+<div style="background:#131b2e;color:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:center;gap:14px">
+<div style="width:56px;height:56px;border-radius:16px;background:#fea619;color:#2a1700;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;flex-shrink:0">{{ spot.umb }}</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#93ccff">{{ t.yourSpot }}</span><span style="font-size:18px;font-weight:700">{{ t.umbrella }}</span><span style="font-size:12px;color:#dae2fd">{{ t.sector }}</span></div>
+<button onClick="{{ toggleEditSpot }}" style="height:40px;padding:0 14px;border:0;cursor:pointer;border-radius:9999px;background:{{ editSpotBtn.bg }};color:{{ editSpotBtn.fg }};font-size:13px;font-weight:700;flex-shrink:0">{{ editSpotBtn.label }}</button>
+</div>
+<sc-if value="{{ editSpot }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid rgba(255,255,255,0.12);padding-top:16px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+<span style="font-size:15px;font-weight:600">{{ t.umbrellaNo }}</span>
+<div style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.08);border-radius:9999px;padding:2px"><button onClick="{{ umbDec }}" aria-label="Meno" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#fff;color:#131b2e;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">remove</span></button><span style="min-width:36px;text-align:center;font-size:18px;font-weight:800;font-variant-numeric:tabular-nums">{{ spot.umb }}</span><button onClick="{{ umbInc }}" aria-label="Più" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#fea619;color:#131b2e;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">add</span></button></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:600">{{ t.rowLabel }}</span>
+<div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px"><sc-for list="{{ rowOptsDark }}" as="ro" hint-placeholder-count="6"><button onClick="{{ ro.select }}" style="height:44px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:800;border:1px solid {{ ro.border }};background:{{ ro.bg }};color:{{ ro.fg }}">{{ ro.label }}</button></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:600">{{ t.sectorLabel }}</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px"><sc-for list="{{ sectorOptsDark }}" as="so" hint-placeholder-count="2"><button onClick="{{ so.select }}" style="height:44px;border-radius:12px;cursor:pointer;font-size:13px;font-weight:700;border:1px solid {{ so.border }};background:{{ so.bg }};color:{{ so.fg }}">{{ so.label }}</button></sc-for></div></div>
+<span style="display:flex;align-items:center;gap:6px;font-size:12px;color:#dae2fd"><span class="material-symbols-outlined" style="font-size:16px;color:#93ccff">qr_code_scanner</span>{{ t.spotHint }}</span>
+</div>
+</sc-if>
+</div>
+<div style="background:#fff;border-radius:16px;padding:6px 16px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
+<div style="padding:12px 0 6px;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.hours }}</div>
+<sc-for list="{{ hoursRows }}" as="h" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f2f3ff"><span class="material-symbols-outlined" style="font-size:22px;color:#006194">{{ h.icon }}</span><span style="flex:1;font-size:15px;font-weight:500">{{ h.label }}</span><b style="font-size:14px;font-variant-numeric:tabular-nums">{{ h.value }}</b></div>
+</sc-for>
+</div>
+<div style="background:#fff;border-radius:16px;padding:6px 16px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
+<div style="padding:12px 0 6px;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">Wi-Fi</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f2f3ff"><span class="material-symbols-outlined" style="font-size:22px;color:#006194">wifi</span><span style="flex:1;font-size:15px;font-weight:500">{{ t.network }}</span><b style="font-size:14px">TraghettoBlu_Guest</b></div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f2f3ff"><span class="material-symbols-outlined" style="font-size:22px;color:#006194">key</span><span style="flex:1;font-size:15px;font-weight:500">Password</span><b style="font-size:14px;font-family:ui-monospace,monospace">spritz2026</b></div>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ PROFILE / SETTINGS ============ -->
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 16px 120px;display:flex;flex-direction:column;gap:16px">
+
+<sc-if value="{{ loggedOut }}" hint-placeholder-val="{{ true }}">
+<div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 20px -2px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:24px;font-weight:700;letter-spacing:-0.01em">{{ t.loginTitle }}</span><span style="font-size:14px;color:#3f4850;line-height:20px;text-wrap:pretty">{{ t.loginSub }}</span></div>
+<button onClick="{{ login }}" style="height:52px;border:0;cursor:pointer;border-radius:9999px;background:#131b2e;color:#fff;font-size:15px;font-weight:700" style-active="transform:scale(0.98)">{{ t.loginApple }}</button>
+<button onClick="{{ login }}" style="height:52px;cursor:pointer;border-radius:9999px;background:#fff;border:2px solid #e2e8f0;color:#131b2e;font-size:15px;font-weight:600" style-active="transform:scale(0.98)">{{ t.loginGoogle }}</button>
+<div style="display:flex;align-items:center;gap:10px;color:#707881;font-size:12px;font-weight:600"><span style="flex:1;height:1px;background:#e2e7ff"></span>{{ t.or }}<span style="flex:1;height:1px;background:#e2e7ff"></span></div>
+<input type="email" value="{{ loginEmail }}" onChange="{{ onLoginEmail }}" placeholder="nome@email.it" style="height:52px;box-sizing:border-box;padding:0 16px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;font-weight:500;color:#131b2e;outline:none" style-focus="border-color:#006194;box-shadow:0 0 0 4px rgba(2,132,199,0.15)">
+<button onClick="{{ login }}" style="height:52px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:15px;font-weight:700" style-active="transform:scale(0.98)">{{ t.loginEmail }}</button>
+<span style="font-size:12px;color:#3f4850;text-align:center">{{ t.guestNote }}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;align-items:center;gap:14px">
+<div style="width:56px;height:56px;border-radius:9999px;background:#006194;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;flex-shrink:0">{{ avatar.initials }}</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:18px;font-weight:700">{{ user.name }}</span><span style="font-size:13px;color:#3f4850;overflow:hidden;text-overflow:ellipsis">{{ user.email }}</span></div>
+</div>
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:12px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.myData }}</span>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;color:#3f4850">{{ t.fullName }}<input value="{{ user.name }}" onChange="{{ onName }}" style="height:52px;box-sizing:border-box;padding:0 14px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;font-weight:500;color:#131b2e;outline:none" style-focus="border-color:#006194;box-shadow:0 0 0 4px rgba(2,132,199,0.15)"></label>
+<label style="display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;color:#3f4850">{{ t.phone }}<input value="{{ user.phone }}" onChange="{{ onPhone }}" type="tel" style="height:52px;box-sizing:border-box;padding:0 14px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;font-weight:500;color:#131b2e;outline:none" style-focus="border-color:#006194;box-shadow:0 0 0 4px rgba(2,132,199,0.15)"></label>
+</div>
+</sc-if>
+
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.mySpot }}</span><span style="display:inline-flex;align-items:center;gap:4px;background:#6ffbbe;color:#002113;border-radius:9999px;padding:2px 8px;font-size:11px;font-weight:700"><span class="material-symbols-outlined" style="font-size:13px">qr_code_scanner</span>{{ t.fromQr }}</span></div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+<span style="font-size:15px;font-weight:600">{{ t.umbrellaNo }}</span>
+<div style="display:flex;align-items:center;gap:4px;border:1px solid #e2e7ff;border-radius:9999px;padding:2px"><button onClick="{{ umbDec }}" aria-label="Meno" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#fff;color:#131b2e;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(15,23,42,0.1)"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">remove</span></button><span style="min-width:36px;text-align:center;font-size:18px;font-weight:800;font-variant-numeric:tabular-nums">{{ spot.umb }}</span><button onClick="{{ umbInc }}" aria-label="Più" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:20px;font-weight:700">add</span></button></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:600">{{ t.rowLabel }}</span>
+<div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px"><sc-for list="{{ rowOpts }}" as="ro" hint-placeholder-count="6"><button onClick="{{ ro.select }}" style="height:44px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:800;border:1px solid {{ ro.border }};background:{{ ro.bg }};color:{{ ro.fg }}">{{ ro.label }}</button></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:600">{{ t.sectorLabel }}</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px"><sc-for list="{{ sectorOpts }}" as="so" hint-placeholder-count="2"><button onClick="{{ so.select }}" style="height:44px;border-radius:12px;cursor:pointer;font-size:13px;font-weight:700;border:1px solid {{ so.border }};background:{{ so.bg }};color:{{ so.fg }}">{{ so.label }}</button></sc-for></div></div>
+</div>
+
+<sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(15,23,42,0.06);display:flex;flex-direction:column;gap:10px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.payMethods }}</span>
+<sc-for list="{{ cardRows }}" as="cr" hint-placeholder-count="1">
+<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;border:2px solid {{ cr.border }};background:{{ cr.bg }}">
+<button onClick="{{ cr.select }}" style="flex:1;min-width:0;display:flex;align-items:center;gap:12px;border:0;background:transparent;cursor:pointer;padding:0;text-align:left;color:#131b2e">
+<span style="width:44px;height:30px;border-radius:6px;background:#131b2e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;letter-spacing:0.04em;flex-shrink:0">{{ cr.brand }}</span>
+<span style="display:flex;flex-direction:column"><b style="font-size:15px;font-variant-numeric:tabular-nums">•••• {{ cr.last4 }}</b><span style="font-size:12px;color:#3f4850">{{ cr.sub }}</span></span>
+</button>
+<button onClick="{{ cr.remove }}" aria-label="Rimuovi carta" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:transparent;color:#ba1a1a;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:20px">delete</span></button>
+</div>
+</sc-for>
+<sc-if value="{{ addingCard }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px;padding-top:4px">
+<input value="{{ cardForm.num }}" onChange="{{ onCardNum }}" inputmode="numeric" placeholder="{{ t.cardNumber }}" style="height:52px;box-sizing:border-box;padding:0 14px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;font-weight:500;color:#131b2e;outline:none;font-variant-numeric:tabular-nums" style-focus="border-color:#006194;box-shadow:0 0 0 4px rgba(2,132,199,0.15)">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
+<input value="{{ cardForm.exp }}" onChange="{{ onCardExp }}" placeholder="MM/AA" style="height:52px;box-sizing:border-box;padding:0 14px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;font-weight:500;color:#131b2e;outline:none" style-focus="border-color:#006194;box-shadow:0 0 0 4px rgba(2,132,199,0.15)">
+<input value="{{ cardForm.cvc }}" onChange="{{ onCardCvc }}" placeholder="CVC" inputmode="numeric" style="height:52px;box-sizing:border-box;padding:0 14px;background:#fff;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;font-weight:500;color:#131b2e;outline:none" style-focus="border-color:#006194;box-shadow:0 0 0 4px rgba(2,132,199,0.15)">
+</div>
+<sc-if value="{{ cardError }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;color:#ba1a1a">{{ t.cardInvalid }}</span></sc-if>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px"><button onClick="{{ cancelCard }}" style="height:48px;cursor:pointer;border-radius:9999px;background:#fff;border:2px solid #e2e8f0;color:#131b2e;font-size:14px;font-weight:600">{{ t.cancel }}</button><button onClick="{{ saveCard }}" style="height:48px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:14px;font-weight:700">{{ t.saveCard }}</button></div>
+</div>
+</sc-if>
+<sc-if value="{{ notAddingCard }}" hint-placeholder-val="{{ true }}"><button onClick="{{ startCard }}" style="height:48px;cursor:pointer;border-radius:9999px;background:#f2f3ff;border:1px dashed #707881;color:#006194;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px"><span class="material-symbols-outlined" style="font-size:20px">add_card</span>{{ t.addCard }}</button></sc-if>
+</div>
+</sc-if>
+
+<div style="background:#fff;border-radius:16px;padding:6px 16px;box-shadow:0 1px 3px rgba(15,23,42,0.06)">
+<div style="padding:12px 0 6px;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.settings }}</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f2f3ff">
+<span class="material-symbols-outlined" style="font-size:22px;color:#006194">translate</span>
+<span style="flex:1;font-size:15px;font-weight:600">{{ t.language }}</span>
+<div style="display:flex;align-items:center;background:#eaedff;border-radius:9999px;padding:3px"><button onClick="{{ setIT }}" style="height:36px;min-width:52px;border:0;cursor:pointer;border-radius:9999px;font-size:13px;font-weight:700;background:{{ langIT.bg }};color:{{ langIT.fg }}">ITA</button><button onClick="{{ setEN }}" style="height:36px;min-width:52px;border:0;cursor:pointer;border-radius:9999px;font-size:13px;font-weight:700;background:{{ langEN.bg }};color:{{ langEN.fg }}">EN</button></div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f2f3ff">
+<span class="material-symbols-outlined" style="font-size:22px;color:#855300;font-variation-settings:'FILL' 1">wb_sunny</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600">{{ t.sunMode }}</span><span style="font-size:12px;color:#3f4850">{{ t.sunModeSub }}</span></div>
+<button onClick="{{ toggleSun }}" aria-label="Sunlight mode" style="width:52px;height:32px;border:0;cursor:pointer;border-radius:9999px;padding:3px;display:flex;flex-shrink:0;justify-content:{{ sunSwitch.justify }};background:{{ sunSwitch.bg }}"><span style="width:26px;height:26px;border-radius:9999px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.25)"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #f2f3ff">
+<span class="material-symbols-outlined" style="font-size:22px;color:#131b2e;font-variation-settings:'FILL' 1">dark_mode</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:600">{{ t.darkMode }}</span><span style="font-size:12px;color:#3f4850">{{ t.darkModeSub }}</span></div>
+<button onClick="{{ toggleDark }}" aria-label="Dark mode" style="width:52px;height:32px;border:0;cursor:pointer;border-radius:9999px;padding:3px;display:flex;flex-shrink:0;justify-content:{{ darkSwitch.justify }};background:{{ darkSwitch.bg }}"><span style="width:26px;height:26px;border-radius:9999px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.25)"></span></button>
+</div>
+</div>
+
+<sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}"><button onClick="{{ logout }}" style="height:52px;cursor:pointer;border-radius:9999px;background:#fff;border:2px solid #ffdad6;color:#ba1a1a;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px"><span class="material-symbols-outlined" style="font-size:20px">logout</span>{{ t.logout }}</button></sc-if>
+</div>
+</sc-if>
+
+<!-- ============ RUNNER ============ -->
+<sc-if value="{{ isRunner }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 16px 120px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+<div style="display:flex;flex-direction:column"><span style="font-size:24px;font-weight:700;letter-spacing:-0.01em">{{ t.queue }}</span><span style="font-size:12px;color:#3f4850">{{ queueCountText }}</span></div>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#00855b;color:#f5fff6;border-radius:9999px;padding:6px 12px;font-size:12px;font-weight:700"><span style="width:8px;height:8px;border-radius:9999px;background:#6ffbbe"></span>{{ t.onShift }}</span>
+</div>
+<sc-for list="{{ runnerQueue }}" as="r" hint-placeholder-count="3">
+<div style="background:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 3px rgba(15,23,42,0.06);border:2px solid {{ r.border }}">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:52px;height:52px;border-radius:12px;background:#131b2e;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;font-variant-numeric:tabular-nums"><span style="font-size:20px;font-weight:800;line-height:1">{{ r.umb }}</span><span style="font-size:10px;font-weight:700;color:#93ccff;margin-top:2px">{{ r.row }}</span></div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+<div style="display:flex;align-items:center;gap:6px"><b style="font-size:14px">{{ r.code }}</b><span style="font-size:11px;font-weight:700;border-radius:9999px;padding:2px 8px;background:{{ r.statusBg }};color:{{ r.statusFg }}">{{ r.statusLabel }}</span></div>
+<span style="font-size:13px;color:#3f4850">{{ r.summary }}</span>
+</div>
+<span style="font-size:12px;color:#707881;white-space:nowrap">{{ r.ago }}</span>
+</div>
+<sc-if value="{{ r.hasNote }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:6px;background:#ffddb8;color:#2a1700;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:600"><span class="material-symbols-outlined" style="font-size:16px">sticky_note_2</span>{{ r.note }}</div></sc-if>
+<sc-if value="{{ r.actionable }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ r.act }}" style="height:52px;border:0;cursor:pointer;border-radius:9999px;font-size:14px;font-weight:700;letter-spacing:0.02em;display:flex;align-items:center;justify-content:center;gap:8px;background:{{ r.btnBg }};color:{{ r.btnFg }}" style-active="transform:scale(0.98)"><span class="material-symbols-outlined" style="font-size:20px">{{ r.btnIcon }}</span>{{ r.btnLabel }}</button>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+
+<!-- Floating lounger hub -->
+<sc-if value="{{ showHub }}" hint-placeholder-val="{{ true }}">
+<aside style="position:absolute;left:16px;right:16px;bottom:100px;z-index:20;background:rgba(40,48,68,0.96);color:#eef0ff;border-radius:9999px;padding:8px 8px 8px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;box-shadow:0 20px 40px -6px rgba(15,23,42,0.35);border-top:1px solid rgba(255,255,255,0.15)">
+<div style="display:flex;align-items:center;gap:8px;min-width:0">
+<div style="width:40px;height:40px;border-radius:9999px;background:#fea619;color:#684000;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' 1">shopping_bag</span></div>
+<div style="display:flex;flex-direction:column;min-width:0"><span style="font-size:11px;font-weight:700;color:#ffddb8;letter-spacing:0.02em;white-space:nowrap">{{ hubCount }}</span><span style="font-size:18px;font-weight:800;line-height:22px">{{ subtotalText }}</span></div>
+</div>
+<button onClick="{{ goCart }}" style="height:48px;padding:0 18px;border:0;cursor:pointer;border-radius:9999px;background:#fea619;color:#131b2e;font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px;flex-shrink:0" style-active="transform:scale(0.96)">{{ t.viewCart }}<span class="material-symbols-outlined" style="font-size:20px">arrow_forward</span></button>
+</aside>
+</sc-if>
+
+<!-- Bottom nav -->
+<sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+<nav style="position:absolute;left:0;right:0;bottom:0;z-index:25;background:rgba(250,248,255,0.96);box-shadow:0 -4px 20px rgba(19,27,46,0.06);padding:6px 4px 26px;display:flex;justify-content:space-around">
+<sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+<button onClick="{{ n.go }}" style="min-width:72px;height:56px;border:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ n.color }}">
+<span style="position:relative;display:flex"><span class="material-symbols-outlined" style="font-size:24px;font-variation-settings:'FILL' {{ n.fill }}">{{ n.icon }}</span><sc-if value="{{ n.dot }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-2px;right:-4px;width:8px;height:8px;border-radius:9999px;background:#00855b"></span></sc-if></span>
+<span style="font-size:12px;font-weight:700;letter-spacing:0.02em">{{ n.label }}</span>
+</button>
+</sc-for>
+</nav>
+</sc-if>
+
+<!-- Paying overlay -->
+<sc-if value="{{ isPaying }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:90;background:rgba(19,27,46,0.55);display:flex;align-items:center;justify-content:center">
+<div style="background:#fff;border-radius:24px;padding:28px 32px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 20px 40px -6px rgba(15,23,42,0.3)">{{ spinner }}<span style="font-size:15px;font-weight:700">{{ t.paying }}</span><span style="font-size:22px;font-weight:800;color:#006194">{{ totalText }}</span></div>
+</div>
+</sc-if>
+
+<!-- Product sheet -->
+<sc-if value="{{ hasProductSheet }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:80;background:rgba(19,27,46,0.45);display:flex;flex-direction:column;justify-content:flex-end">
+<div onClick="{{ stop }}" style="background:#fff;border-radius:24px 24px 0 0;overflow:hidden;box-shadow:0 -12px 32px -4px rgba(15,23,42,0.18);animation:lidoUp .25s ease-out">
+<div style="position:relative;height:240px;background:#eaedff">
+<sc-if value="{{ sheetP.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ sheetP.img }}" alt="{{ sheetP.name }}" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if><sc-if value="{{ sheetP.noImg }}" hint-placeholder-val="{{ false }}"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:{{ sheetP.tileBg }}"><span class="material-symbols-outlined" style="font-size:96px;color:#131b2e;opacity:0.8;font-variation-settings:'FILL' 1">{{ sheetP.icon }}</span></div></sc-if>
+<button onClick="{{ closeSheet }}" aria-label="Chiudi" style="position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;cursor:pointer;border-radius:9999px;background:rgba(255,255,255,0.95);color:#131b2e;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:22px">close</span></button>
+</div>
+<div style="padding:20px 20px 36px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><h2 style="margin:0;font-size:24px;font-weight:700;line-height:30px;letter-spacing:-0.01em">{{ sheetP.name }}</h2><span style="font-size:22px;font-weight:800;color:#006194;white-space:nowrap">{{ sheetP.priceText }}</span></div>
+<p style="margin:0;font-size:15px;line-height:22px;color:#3f4850;font-weight:500">{{ sheetP.long }}</p>
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#3f4850">{{ t.contains }}</span>
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<sc-for list="{{ sheetP.allergenChips }}" as="a" hint-placeholder-count="2"><span style="background:#f1f5f9;color:#0f172a;border-radius:9999px;padding:6px 14px;font-size:12px;font-weight:700">{{ a }}</span></sc-for>
+<sc-if value="{{ sheetP.noAllergens }}" hint-placeholder-val="{{ false }}"><span style="background:#d4fbe7;color:#005236;border-radius:9999px;padding:6px 14px;font-size:12px;font-weight:700">{{ t.noAllergens }}</span></sc-if>
+</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:6px">
+<div style="display:flex;align-items:center;gap:4px;border:2px solid #e2e7ff;border-radius:9999px;padding:2px">
+<button onClick="{{ sheetDec }}" aria-label="Meno" style="width:48px;height:48px;border:0;cursor:pointer;border-radius:9999px;background:#fff;color:#131b2e;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:22px;font-weight:700">remove</span></button>
+<span style="min-width:24px;text-align:center;font-size:18px;font-weight:800">{{ sheetQty }}</span>
+<button onClick="{{ sheetInc }}" aria-label="Più" style="width:48px;height:48px;border:0;cursor:pointer;border-radius:9999px;background:#fff;color:#131b2e;display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:22px;font-weight:700">add</span></button>
+</div>
+<button onClick="{{ sheetAdd }}" style="flex:1;height:52px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:15px;font-weight:700;letter-spacing:0.02em" style-active="transform:scale(0.98)">{{ sheetAddLabel }}</button>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<!-- Allergen sheet -->
+<sc-if value="{{ hasAllergenSheet }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:80;background:rgba(19,27,46,0.45);display:flex;flex-direction:column;justify-content:flex-end">
+<div onClick="{{ stop }}" style="background:#fff;border-radius:24px 24px 0 0;padding:12px 20px 36px;display:flex;flex-direction:column;gap:14px;box-shadow:0 -12px 32px -4px rgba(15,23,42,0.18);animation:lidoUp .25s ease-out">
+<div style="width:40px;height:5px;border-radius:9999px;background:#dae2fd;align-self:center"></div>
+<div style="display:flex;align-items:center;justify-content:space-between"><h2 style="margin:0;font-size:24px;font-weight:700;letter-spacing:-0.01em">{{ t.allergenTitle }}</h2><button onClick="{{ clearAllergens }}" style="border:0;background:transparent;color:#006194;font-size:14px;font-weight:700;cursor:pointer">{{ t.reset }}</button></div>
+<span style="font-size:14px;color:#3f4850">{{ t.allergenSub }}</span>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+<sc-for list="{{ allergenOpts }}" as="ao" hint-placeholder-count="8">
+<button onClick="{{ ao.toggle }}" style="height:52px;cursor:pointer;border-radius:12px;padding:0 12px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;text-align:left;border:2px solid {{ ao.border }};background:{{ ao.bg }};color:#131b2e">
+<span style="width:24px;height:24px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:2px solid {{ ao.boxBorder }};background:{{ ao.boxBg }};color:#fff;box-sizing:border-box"><span class="material-symbols-outlined" style="font-size:16px;font-weight:700">{{ ao.check }}</span></span>{{ ao.label }}</button>
+</sc-for>
+</div>
+<button onClick="{{ closeSheet }}" style="height:52px;border:0;cursor:pointer;border-radius:9999px;background:#006194;color:#fff;font-size:15px;font-weight:700;margin-top:4px">{{ applyLabel }}</button>
+</div>
+</div>
+</sc-if>
+
+<!-- Toast -->
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:50%;top:120px;transform:translateX(-50%);z-index:95;background:#131b2e;color:#fff;border-radius:9999px;padding:10px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap;box-shadow:0 12px 32px -4px rgba(15,23,42,0.3)"><span class="material-symbols-outlined" style="font-size:18px;color:#4edea3">check_circle</span>{{ toast }}</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;menu&quot;,&quot;cart&quot;,&quot;orders&quot;,&quot;info&quot;,&quot;runner&quot;,&quot;profile&quot;],&quot;default&quot;:&quot;menu&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;startLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;it&quot;,&quot;en&quot;],&quot;default&quot;:&quot;it&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;prefilledCart&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;darkMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const IMG = {
+  aperol: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAppoTCS63MbhYG-HKO-VVfFSwSVZiY6HXuPwoujH_yAjmI0ZX6r6v7nLSh0sL8-SDUXyGkZXRTn8IjCNZfM9lpeIUYflJYplv0qZ-M-F1VS_sGowIxRlUOBgX3P-y_QVGk8JuWNYzE9CT4PZimNQVmxOwTooZWy4ipY4PuO2qLJLM7iszZWvTaLHX5BI4SooNGY63Uxt4bA43-Pzkq3fmh1TFwEFGFlVTFd5TYJ9CJ3h-3gNCg3VprwA',
+  insalata: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwvDISmX27HX1WUdFtKUHvrfKPdgxXo2zy06Iebo0vFePCGrVybS-KyGZzVgUtrctMhBHsoR5A8Ad4n5bri6gJS2gxX__CAYy0softTOOiUS_jhc2pvFPD5KbI-qH22JB1u6P7XCLfqati0X66pgXkmCv_mngB5diixNmjMG6Rs2DuTH0IOVKnSLxAuTCbpPXpkKYg_D8PdLX1wipFOwBtfIUFauG-7_qPyqTTxujHN6Ea0u3OKp4owg',
+  caffe: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB-G_yAxt2IgtCpOc1rKYnKY5B7XAMVca6g6rxUZesmeW3OoAUgqjIc9X9xlg5oIHtK5zflQIyCoXNUPjUM-xes3cYgRHu6fL3KAqGfXbrHLaXROIGJmTzg-2th6y3mw3Yi1zxilruIrTlORLKpllV-U_Gr8mpgsN3NEXEigYYx2205vG97Ydt0A6uWLL3c9AhC4roHPy-44c-2KurtYHK79oPsQKE1G30ky42v9lcYHsGWU9orm3Aapw',
+  granita: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHuISHwB62GYMWAgxdYVVz2hPplSM8T6T2RGI7ZOi3bRnT1soFUy77rEQdsPkrWS6HMTiy3NmQ6eeChc9GopnxUfnsPPfRIidu4UbDTzeRcHxyg99HI1tPaK-VyIaLbyCAPplAT_menMGpCOvnR7sYgyor6a1sLmpKariet8iwhpFlvR0Gyr_uG-dg4Bj-X3TayVqqQ7nZxjh1_KUvATw7SgF9aJ2cfoEpKcNmRikqoTpT8ralUNdbsQ',
+  birra: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAHJaOJVEqtuC4jd-bJL5KboR4-OD7aSFCXOy_11MClMo4lJaewP13X7PeweLnZfl6leR1fBoSDn_qA7w3weVLCMEq-Jemmz-OTCx2sxhuAgb0wG3hQ3xi5WmGERdLQZBrd7BNxtJftoEZId8eX1a8RvGK9nOPxzBIJN0Fq6MRUadReb4UFG7gisUGxQ7fCbYN-HaUDAW1jfn9nyXU4p4y21tETOBdI5014-vheqGo7mJ_uyjd_MySeoQ',
+  panino: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAxxunlFinq9w_61yyzyrASkHw1RFcZ6P1L2XqkK_OW4GOk7mgSMNd39CKqk60ht_-uAySvUQymtCe32reb88jjx5KccMjABpgaScLdJXj8AU1tD_RNlvDxBr1rhoxm0WQVIT_9WPre1lB_s-43pRXMx4pdIo9G1wEC2Vw3v6fUgz5mTWq1-1NNqd8SebZTR_RK3AR6urnIe-7s0e87yQvwgT87dBzElVgWXYvmXmLo942haFCiQKEzjA'
+};
+const TAGC = { amber: ['#ffddb8', '#653e00'], mint: ['#d4fbe7', '#005236'], blue: ['#e2e7ff', '#004b73'] };
+const PRODUCTS = [
+  { id: 'aperol', cat: 'alcol', name: 'Aperol Spritz con Patatine', price: 8.5, img: IMG.aperol, featured: true, badge: 'fav', al: ['solfiti'], tag: { it: 'Spritz', en: 'Spritz' }, tagC: 'amber',
+    desc: { it: 'Patatine salate al sale di Cervia', en: 'Crisps with Cervia sea salt' }, cart: { it: 'Ghiaccio, scorza arancia', en: 'Ice, orange peel' },
+    long: { it: 'Aperol, prosecco DOC e soda su ghiaccio, servito con una ciotola di patatine al sale di Cervia.', en: 'Aperol, DOC prosecco and soda over ice, served with a bowl of Cervia sea-salt crisps.' } },
+  { id: 'insalata', cat: 'cucina', name: 'Insalata di Mare & Agrumi', price: 14, img: IMG.insalata, featured: true, badge: 'catch', al: ['crostacei', 'molluschi'], tag: { it: 'Pescato', en: 'Catch' }, tagC: 'blue',
+    desc: { it: 'Crostacei · Fresco', en: 'Shellfish · Fresh' }, cart: { it: 'Polpo, gamberi, arancia', en: 'Octopus, prawns, orange' },
+    long: { it: "Polpo, gamberi e calamari del pescato dell'Adriatico con arance, limone e olio extravergine abruzzese.", en: 'Adriatic octopus, prawns and squid with orange, lemon and Abruzzo extra-virgin olive oil.' } },
+
+  { id: 'espresso', cat: 'caffe', name: 'Espresso', price: 1.3, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/Cup_of_espresso_02.jpg/960px-Cup_of_espresso_02.jpg', al: [], tag: { it: 'Classico', en: 'Classic' }, tagC: 'blue',
+    desc: { it: 'Miscela torrefatta a Pescara', en: 'Blend roasted in Pescara' }, cart: { it: 'Tazzina calda', en: 'Hot cup' },
+    long: { it: 'Espresso con miscela di una torrefazione pescarese, servito al lettino con bicchiere d\'acqua.', en: 'Espresso from a Pescara roastery, served at your sunbed with a glass of water.' } },
+  { id: 'cappuccino', cat: 'caffe', name: 'Cappuccino', price: 1.8, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Cappuccino_with_foam.jpg/960px-Cappuccino_with_foam.jpg', al: ['latte'], tag: { it: 'Colazione', en: 'Breakfast' }, tagC: 'amber',
+    desc: { it: 'Anche con latte vegetale', en: 'Plant milk available' }, cart: { it: 'Latte intero', en: 'Whole milk' },
+    long: { it: 'Espresso e latte montato. Disponibile anche con latte di soia o avena.', en: 'Espresso and steamed milk. Soy or oat milk available.' } },
+  { id: 'cornetto', cat: 'caffe', name: 'Cornetto', price: 1.5, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Cornetto_a_colazione_al_B%26B_Esperan%C3%A7a_-_Frascineto_%28CS%29.jpg/960px-Cornetto_a_colazione_al_B%26B_Esperan%C3%A7a_-_Frascineto_%28CS%29.jpg', al: ['glutine', 'uova', 'latte'], tag: { it: 'Colazione', en: 'Breakfast' }, tagC: 'amber',
+    desc: { it: 'Vuoto, crema, marmellata o Nutella', en: 'Plain, custard, jam or Nutella' }, cart: { it: 'Alla crema', en: 'Custard' },
+    long: { it: 'Cornetto sfornato la mattina: vuoto, alla crema, alla marmellata o alla Nutella.', en: 'Baked every morning: plain, custard, jam or Nutella.' } },
+  { id: 'caffe', cat: 'caffe', name: 'Caffè Shakerato', price: 3.5, img: IMG.caffe, tag: { it: 'Freddo', en: 'Iced' }, tagC: 'blue', al: ['frutta'],
+    desc: { it: 'Con latte di mandorla', en: 'With almond milk' }, cart: { it: 'Con latte di mandorla', en: 'With almond milk' },
+    long: { it: 'Espresso shakerato con ghiaccio e latte di mandorla.', en: 'Espresso shaken over ice with almond milk.' } },
+  { id: 'cappfreddo', cat: 'caffe', name: 'Cappuccino Freddo', price: 2.8, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Cappuccino_freddo.jpg/960px-Cappuccino_freddo.jpg', al: ['latte'], tag: { it: 'Freddo', en: 'Iced' }, tagC: 'blue',
+    desc: { it: 'Latte montato a freddo', en: 'Cold-frothed milk' }, cart: { it: 'Latte montato a freddo', en: 'Cold-frothed milk' },
+    long: { it: 'Espresso, latte fresco montato a freddo e ghiaccio.', en: 'Espresso, cold-frothed fresh milk and ice.' } },
+  { id: 'granita', cat: 'caffe', name: 'Granita al Limone', price: 4.5, img: IMG.granita, tag: { it: 'Senza Glutine', en: 'Gluten free' }, tagC: 'mint', al: [],
+    desc: { it: 'Artigianale, poco zuccherata', en: 'Hand-made, lightly sweetened' }, cart: { it: 'Artigianale', en: 'Hand-made' },
+    long: { it: 'Granita artigianale al limone. Fresca, poco zuccherata.', en: 'Hand-made lemon granita. Fresh, lightly sweetened.' } },
+  { id: 'spremuta', cat: 'caffe', name: "Spremuta d'Arancia", price: 4, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Orange_juice_1_edit1.jpg/960px-Orange_juice_1_edit1.jpg', al: [], tag: { it: 'Vegano', en: 'Vegan' }, tagC: 'mint',
+    desc: { it: 'Spremuta al momento', en: 'Freshly squeezed' }, cart: { it: 'Con ghiaccio', en: 'With ice' },
+    long: { it: 'Arance spremute al momento, servite con ghiaccio.', en: 'Freshly squeezed oranges, served over ice.' } },
+  { id: 'acqua', cat: 'caffe', name: 'Acqua Minerale 50 cl', price: 1.5, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Acqua_Panna_mineral_water_in_a_glass_bottle_-_20140408.jpg/960px-Acqua_Panna_mineral_water_in_a_glass_bottle_-_20140408.jpg', al: [], tag: { it: 'Naturale o frizzante', en: 'Still or sparkling' }, tagC: 'blue',
+    desc: { it: 'Naturale o frizzante', en: 'Still or sparkling' }, cart: { it: 'Ghiacciata', en: 'Ice cold' },
+    long: { it: 'Acqua minerale abruzzese, naturale o frizzante, servita ghiacciata.', en: 'Abruzzo mineral water, still or sparkling, served ice cold.' } },
+
+  { id: 'aurum', cat: 'alcol', name: "Spritz all'Aurum", price: 8, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Blood_Orange_Spritz_-_Sarah_Stierch.jpg/960px-Blood_Orange_Spritz_-_Sarah_Stierch.jpg', al: ['solfiti'], tag: { it: 'Pescara', en: 'Pescara' }, tagC: 'amber',
+    desc: { it: "Liquore pescarese all'arancia", en: 'Pescara orange liqueur' }, cart: { it: 'Ghiaccio, fetta d\'arancia', en: 'Ice, orange slice' },
+    long: { it: "Aurum, il liquore pescarese a base di brandy e arance, con prosecco e soda.", en: 'Aurum, the Pescara liqueur made with brandy and oranges, topped with prosecco and soda.' } },
+  { id: 'birra', cat: 'alcol', name: 'Birra Artigianale Bionda', price: 5, img: IMG.birra, tag: { it: 'Abruzzo', en: 'Abruzzo' }, tagC: 'amber', al: ['glutine'],
+    desc: { it: '33 cl, birrificio abruzzese', en: '33 cl, Abruzzo brewery' }, cart: { it: '33 cl, ghiacciata', en: '33 cl, ice cold' },
+    long: { it: 'Bionda non filtrata di un birrificio artigianale abruzzese, servita ghiacciata.', en: 'Unfiltered blonde ale from an Abruzzo craft brewery, served ice cold.' } },
+  { id: 'pecorino', cat: 'alcol', name: "Calice di Pecorino d'Abruzzo", price: 6, img: 'https://upload.wikimedia.org/wikipedia/commons/7/71/White_Wine_Glas.jpg', al: ['solfiti'], tag: { it: 'DOC', en: 'DOC' }, tagC: 'mint',
+    desc: { it: 'Bianco fresco e minerale', en: 'Crisp, mineral white' }, cart: { it: 'Calice 15 cl', en: '15 cl glass' },
+    long: { it: "Pecorino d'Abruzzo DOC, bianco fresco e sapido, perfetto con il fritto.", en: "Pecorino d'Abruzzo DOC, a crisp savoury white that pairs with fried fish." } },
+  { id: 'cerasuolo', cat: 'alcol', name: "Calice di Cerasuolo d'Abruzzo", price: 6, img: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Montepulciano_d%27Abruzzo_Cerasuolo_2007.jpg', al: ['solfiti'], tag: { it: 'DOC', en: 'DOC' }, tagC: 'mint',
+    desc: { it: 'Rosato servito fresco', en: 'Rosé served chilled' }, cart: { it: 'Calice 15 cl', en: '15 cl glass' },
+    long: { it: "Cerasuolo d'Abruzzo DOC, rosato di Montepulciano, servito fresco.", en: "Cerasuolo d'Abruzzo DOC, a Montepulciano rosé served chilled." } },
+  { id: 'genziana', cat: 'alcol', name: 'Genziana o Centerbe', price: 4, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Centerba.jpg/960px-Centerba.jpg', al: [], tag: { it: 'Digestivo', en: 'Digestif' }, tagC: 'amber',
+    desc: { it: 'Liquori tipici abruzzesi', en: 'Traditional Abruzzo liqueurs' }, cart: { it: 'Bicchierino', en: 'Shot glass' },
+    long: { it: 'Un bicchierino di Genziana o di Centerbe, i digestivi tradizionali abruzzesi.', en: 'A shot of Genziana or Centerbe, the traditional Abruzzo digestifs.' } },
+
+  { id: 'pizzette', cat: 'snack', name: 'Pizzetta Rossa', price: 2.5, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Due_pizzette.jpg/960px-Due_pizzette.jpg', featured: true, badge: 'local', al: ['glutine'], tag: { it: 'Forno', en: 'Bakery' }, tagC: 'amber',
+    desc: { it: 'Pomodoro e origano, appena sfornata', en: 'Tomato and oregano, fresh from the oven' }, cart: { it: 'Appena sfornata', en: 'Fresh from the oven' },
+    long: { it: 'La pizzetta rossa da forno, classico pescarese: pomodoro, origano e olio. Prezzo a pezzo, ordinane quante vuoi.', en: 'The classic Pescara bakery pizzetta: tomato, oregano and olive oil. Priced per piece, order as many as you like.' } },
+  { id: 'porchetta', cat: 'snack', name: 'Panino con Porchetta', price: 6.5, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Panino_con_porchetta_02.jpg/960px-Panino_con_porchetta_02.jpg', al: ['glutine'], tag: { it: 'Abruzzo', en: 'Abruzzo' }, tagC: 'amber',
+    desc: { it: 'Porchetta abruzzese in pagnotta', en: 'Abruzzo porchetta in a crusty roll' }, cart: { it: 'Pagnotta croccante', en: 'Crusty roll' },
+    long: { it: 'Porchetta abruzzese tagliata al coltello in una pagnotta croccante.', en: 'Hand-sliced Abruzzo porchetta in a crusty bread roll.' } },
+  { id: 'pallotte', cat: 'snack', name: 'Pallotte Cacio e Ova (4 pz)', price: 6.5, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Pallotte_cacio_e_ovo.jpg/960px-Pallotte_cacio_e_ovo.jpg', al: ['glutine', 'latte', 'uova'], tag: { it: 'Vegetariano', en: 'Vegetarian' }, tagC: 'amber',
+    desc: { it: 'Polpette di formaggio e uova al sugo', en: 'Cheese and egg balls in tomato sauce' }, cart: { it: 'Al sugo', en: 'In tomato sauce' },
+    long: { it: 'Polpette di pecorino, uova e pane, fritte e poi passate nel sugo di pomodoro.', en: 'Pecorino, egg and breadcrumb balls, fried and finished in tomato sauce.' } },
+  { id: 'arrosticini', cat: 'snack', name: 'Arrosticini di Pecora (10 pz)', price: 13, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Arrosticini_abruzzesi_01.jpg/960px-Arrosticini_abruzzesi_01.jpg', al: [], tag: { it: 'Abruzzo', en: 'Abruzzo' }, tagC: 'amber',
+    desc: { it: 'Alla brace, con pane e olio', en: 'Chargrilled, with bread and oil' }, cart: { it: 'Con pane e olio', en: 'With bread and oil' },
+    long: { it: 'Spiedini di pecora cotti sulla canala, serviti con pane casereccio condito con olio.', en: 'Mutton skewers grilled over coals, served with country bread and olive oil.' } },
+  { id: 'paranza', cat: 'snack', name: 'Cono di Paranza e Calamari', price: 9, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Fritto_misto_di_pesce_con_limone.jpg/960px-Fritto_misto_di_pesce_con_limone.jpg', al: ['glutine', 'pesce', 'molluschi'], tag: { it: 'Fritto', en: 'Fried' }, tagC: 'blue',
+    desc: { it: "Pesce dell'Adriatico fritto", en: 'Fried Adriatic fish' }, cart: { it: 'Con limone', en: 'With lemon' },
+    long: { it: "Frittura di paranza e anelli di calamaro dell'Adriatico, servita nel cono con limone.", en: 'Fried small Adriatic fish and squid rings, served in a paper cone with lemon.' } },
+  { id: 'panino', cat: 'snack', name: 'Panino Caprese con Bufala', price: 7.5, img: IMG.panino, tag: { it: 'Vegetariano', en: 'Vegetarian' }, tagC: 'amber', al: ['glutine', 'latte'],
+    desc: { it: 'Focaccia calda', en: 'Warm focaccia' }, cart: { it: 'Focaccia calda, senza origano', en: 'Warm focaccia, no oregano' },
+    long: { it: 'Focaccia calda con mozzarella di bufala DOP, pomodoro e basilico.', en: 'Warm focaccia with DOP buffalo mozzarella, tomato and basil.' } },
+
+  { id: 'brodetto', cat: 'cucina', name: 'Brodetto alla Pescarese', price: 18, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Foto_brodetto_.jpg/960px-Foto_brodetto_.jpg', al: ['pesce', 'crostacei', 'molluschi'], tag: { it: 'Pescato', en: 'Catch' }, tagC: 'blue',
+    desc: { it: 'Zuppa di pesce con peperone dolce', en: 'Fish stew with sweet pepper' }, cart: { it: 'Con pane tostato', en: 'With toasted bread' },
+    long: { it: 'Zuppa di pesce dell\'Adriatico con pomodoro e peperone dolce, servita con pane tostato.', en: 'Adriatic fish stew with tomato and sweet pepper, served with toasted bread.' } },
+  { id: 'chitarra', cat: 'cucina', name: 'Chitarrina allo Scoglio', price: 15, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Spaghetti_ai_frutti_di_mare.jpg/960px-Spaghetti_ai_frutti_di_mare.jpg', al: ['glutine', 'uova', 'molluschi', 'crostacei'], tag: { it: 'Pasta fresca', en: 'Fresh pasta' }, tagC: 'amber',
+    desc: { it: 'Pasta alla chitarra, cozze e vongole', en: 'Chitarra pasta, mussels and clams' }, cart: { it: 'Cozze, vongole, gamberi', en: 'Mussels, clams, prawns' },
+    long: { it: 'Spaghetti alla chitarra fatti a mano con cozze, vongole e gamberi.', en: 'Hand-cut chitarra spaghetti with mussels, clams and prawns.' } },
+
+  { id: 'parrozzo', cat: 'dolci', name: 'Parrozzo (fetta)', price: 4, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Parrozzo_abruzzo.jpg/960px-Parrozzo_abruzzo.jpg', al: ['frutta', 'uova'], tag: { it: 'Pescara', en: 'Pescara' }, tagC: 'amber',
+    desc: { it: 'Dolce di mandorle e cioccolato', en: 'Almond cake with chocolate' }, cart: { it: 'Fetta', en: 'Slice' },
+    long: { it: 'Il dolce simbolo di Pescara: mandorle, uova e copertura di cioccolato fondente.', en: "Pescara's signature cake: almonds, eggs and a dark chocolate coating." } },
+  { id: 'bocconotti', cat: 'dolci', name: 'Bocconotti (2 pz)', price: 3.5, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Bocconotti.jpg/960px-Bocconotti.jpg', al: ['glutine', 'uova', 'latte', 'frutta'], tag: { it: 'Abruzzo', en: 'Abruzzo' }, tagC: 'amber',
+    desc: { it: 'Frolla con cioccolato e mandorle', en: 'Shortcrust with chocolate and almonds' }, cart: { it: '2 pezzi', en: '2 pieces' },
+    long: { it: 'Pasta frolla ripiena di cioccolato, mandorle e cannella.', en: 'Shortcrust filled with chocolate, almonds and cinnamon.' } },
+  { id: 'ferratelle', cat: 'dolci', name: 'Ferratelle con Nutella', price: 3, img: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Pizzelle_in_a_loose_stack%2C_April_2010.jpg/960px-Pizzelle_in_a_loose_stack%2C_April_2010.jpg', al: ['glutine', 'uova', 'latte', 'frutta'], tag: { it: 'Tradizione', en: 'Traditional' }, tagC: 'amber',
+    desc: { it: 'Cialde abruzzesi', en: 'Abruzzo waffle wafers' }, cart: { it: 'Con Nutella', en: 'With Nutella' },
+    long: { it: 'Ferratelle (pizzelle) cotte sul ferro, farcite con Nutella.', en: 'Ferratelle (pizzelle) cooked on the iron, filled with Nutella.' } }
+];
+const ALLERGENS = {
+  glutine: { it: 'Glutine', en: 'Gluten' }, crostacei: { it: 'Crostacei', en: 'Shellfish' }, molluschi: { it: 'Molluschi', en: 'Molluscs' },
+  latte: { it: 'Latte', en: 'Milk' }, frutta: { it: 'Frutta a guscio', en: 'Tree nuts' }, uova: { it: 'Uova', en: 'Eggs' },
+  pesce: { it: 'Pesce', en: 'Fish' }, solfiti: { it: 'Solfiti', en: 'Sulphites' }
+};
+const CATS = [
+  { key: 'top', icon: 'local_fire_department', it: 'I più amati', en: 'Most loved' },
+  { key: 'caffe', icon: 'coffee', it: 'Caffetteria', en: 'Breakfast & Drinks' },
+  { key: 'snack', icon: 'local_pizza', it: 'Cibo & Snack', en: 'Food & Snacks' },
+  { key: 'alcol', icon: 'local_bar', it: 'Alcolici', en: 'Alcoholic drinks' },
+  { key: 'cucina', icon: 'restaurant', it: 'Cucina pescarese', en: 'Pescara kitchen' },
+  { key: 'dolci', icon: 'cake', it: 'Dolci', en: 'Sweets' }
+];
+const SECTION_TITLES = {
+  caffe: { it: 'Caffetteria · Colazione & Bevande', en: 'Breakfast & Soft drinks', icon: 'coffee', tile: '#f2e6da' },
+  alcol: { it: 'Alcolici', en: 'Alcoholic drinks', icon: 'local_bar', tile: '#ffddb8' },
+  snack: { it: 'Cibo & Snack', en: 'Food & Snacks', icon: 'local_pizza', tile: '#ffdad6' },
+  cucina: { it: 'Cucina pescarese', en: 'Pescara kitchen', icon: 'restaurant', tile: '#cce5ff' },
+  dolci: { it: 'Dolci abruzzesi', en: 'Abruzzo sweets', icon: 'cake', tile: '#e2e7ff' }
+};
+const T = {
+  it: { umbrella: 'Ombrellone 23 • Fila C', qr: 'QR verificato', greet: 'Buon pomeriggio sotto il sole!', activeUntil: 'Attivo fino alle 19:00', greetBody: 'Ordina direttamente dal tuo lettino. Consegna media stimata:', searchPh: 'Cerca cocktail, snack, insalate...', featuredTitle: 'I più amati sulla spiaggia', fav: 'Preferito', catch: 'Pescato del Giorno', local: 'Tipico pescarese', items: 'Prodotti', viewCart: 'Vedi Carrello', noResults: 'Nessun prodotto trovato', noResultsSub: 'Prova a cambiare ricerca o filtro allergeni.', reset: 'Azzera', excluded: 'allergeni esclusi', excluded1: 'allergene escluso',
+    add: 'Aggiungi', contains: 'Allergeni', noAllergens: 'Nessun allergene principale', allergenTitle: 'Filtro allergeni', allergenSub: 'Nascondi i prodotti che contengono:', show: 'Mostra', productsWord: 'prodotti', added: 'Aggiunto al carrello',
+    cartTitle: 'Il tuo Carrello', help: 'Aiuto', delivery: 'Consegna al lettino', edit: 'Modifica', sector: 'Settore Ponente (sotto la torretta)', eta: 'Tempo stimato: ~12 min', etaSub: "Consegna diretta sotto l'ombrellone", yourOrder: 'Il Tuo Ordine', fast: 'Preparazione Rapida', each: 'cad.', notes: 'Note per il runner o la cucina', notesPh: 'Es. cannuccia, tovaglioli extra, ombrellone giallo...', notesHint: "I runner portano l'ordine direttamente con vassoio parasole.", tip: 'Mancia al Runner', tipBadge: '100% al personale', noTip: 'No mancia', summary: 'Riepilogo costi', subtotal: 'Subtotale prodotti', service: 'Servizio al lettino', promo: 'Promo Pilota', free: 'Gratuito (€0.00)', tipRow: 'Mancia Runner', total: 'Totale da pagare', vat: 'IVA Inclusa', payWallet: 'Paga con Apple Pay / Google Pay', payCard: 'Paga con Carta di Credito / Debito', secure: 'Pagamento cifrato & Consegna tracciata', noReg: 'Nessuna registrazione richiesta • Consegna diretta al tuo lettino', emptyCart: 'Il carrello è vuoto', backMenu: 'Torna al menu', paying: 'Pagamento in corso…',
+    success: 'Ordine confermato!', successSub: "La cucina ha ricevuto il tuo ordine. Ti avvisiamo quando il runner è in arrivo.", orderNo: 'Ordine', paid: 'Pagato', track: "Segui l'ordine", keep: 'Continua a ordinare',
+    ordersTitle: 'I miei ordini', etaLabel: 'Arrivo stimato', steps: ['Ricevuto', 'In preparazione', 'In consegna', 'Consegnato'], stepSubs: ['Pagamento confermato', 'La cucina sta preparando', 'Marco sta arrivando al tuo ombrellone', 'Buon relax!'], deliveredHead: 'Consegnato', status: 'Stato', runnerLine: 'Runner • vassoio parasole', emptyOrders: 'Nessun ordine attivo', emptyOrdersSub: 'Ordina dal menu e segui qui la consegna al tuo lettino.', past: 'Ordini precedenti', reorder: 'Riordina',
+    infoTitle: 'Info Lido', yourSpot: 'Il tuo posto', hours: 'Orari servizio', hBar: 'Bar & Caffetteria', hKitchen: 'Cucina', hDelivery: 'Consegna al lettino', network: 'Rete', sunMode: 'Modalità sole', sunModeSub: 'Contrasto massimo per la luce diretta', callStaff: 'Chiama il personale',
+    runnerTitle: 'Modalità Runner', queue: 'Da consegnare', onShift: 'In servizio', inQueue: 'ordini attivi', take: 'Prendi in carico', deliver: 'Segna consegnato', sNew: 'Nuovo', sPrep: 'In cucina', sGo: 'In consegna', sDone: 'Consegnato', ago: 'min fa', now: 'ora',
+    nav: ['Ordina', 'Ordini', 'Info Lido', 'Runner'],
+    profileTitle: 'Profilo', loginTitle: 'Accedi o registrati', loginSub: 'Salva i tuoi dati, il tuo ombrellone e la tua carta per ordinare in un tap.', loginApple: 'Continua con Apple', loginGoogle: 'Continua con Google', or: 'oppure', loginEmail: 'Continua con email', guestNote: 'Puoi anche ordinare come ospite, senza account.', loginSave: 'Accedi per salvare ombrellone e carta', myData: 'I miei dati', fullName: 'Nome e cognome', phone: 'Telefono', mySpot: 'Il mio ombrellone', fromQr: 'Da QR', umbrellaNo: 'Numero ombrellone', rowLabel: 'Fila', sectorLabel: 'Settore', payMethods: 'Metodi di pagamento', addCard: 'Aggiungi carta', cardNumber: 'Numero carta', cancel: 'Annulla', saveCard: 'Salva carta', cardInvalid: 'Controlla numero, scadenza e CVC.', defaultCard: 'Predefinita', expires: 'Scade', settings: 'Impostazioni', language: 'Lingua', darkMode: 'Modalità scura', darkModeSub: 'Per il tramonto e la sera', logout: 'Esci', payWith: 'Paga con', welcome: 'Bentornata', cardSaved: 'Carta salvata', sectors: { ponente: 'Ponente', levante: 'Levante' }, sectorFull: { ponente: 'Settore Ponente (sotto la torretta)', levante: 'Settore Levante (vicino al bar)' }, umbWord: 'Ombrellone', rowWord: 'Fila', change: 'Cambia', done: 'Fatto', spotHint: "Hai cambiato posto? Aggiornalo qui o scansiona il QR del nuovo ombrellone." },
+  en: { umbrella: 'Umbrella 23 • Row C', qr: 'QR verified', greet: 'Good afternoon in the sun!', activeUntil: 'Open until 19:00', greetBody: 'Order straight from your sunbed. Average delivery:', searchPh: 'Search cocktails, snacks, salads...', featuredTitle: 'Beach favourites', fav: 'Favourite', catch: 'Catch of the day', local: 'Pescara classic', items: 'items', viewCart: 'View cart', noResults: 'No items found', noResultsSub: 'Try another search or allergen filter.', reset: 'Reset', excluded: 'allergens excluded', excluded1: 'allergen excluded',
+    add: 'Add', contains: 'Allergens', noAllergens: 'No major allergens', allergenTitle: 'Allergen filter', allergenSub: 'Hide items that contain:', show: 'Show', productsWord: 'items', added: 'Added to cart',
+    cartTitle: 'Your cart', help: 'Help', delivery: 'Sunbed delivery', edit: 'Edit', sector: 'West sector (below the tower)', eta: 'Estimated: ~12 min', etaSub: 'Delivered to your umbrella', yourOrder: 'Your order', fast: 'Fast prep', each: 'each', notes: 'Notes for the runner or kitchen', notesPh: 'E.g. straw, extra napkins, yellow umbrella...', notesHint: 'Runners bring your order on a shaded tray.', tip: 'Tip your runner', tipBadge: '100% to staff', noTip: 'No tip', summary: 'Cost summary', subtotal: 'Items subtotal', service: 'Sunbed service', promo: 'Pilot promo', free: 'Free (€0.00)', tipRow: 'Runner tip', total: 'Total to pay', vat: 'VAT incl.', payWallet: 'Pay with Apple Pay / Google Pay', payCard: 'Pay by credit / debit card', secure: 'Encrypted payment & tracked delivery', noReg: 'No sign-up needed • Delivered to your sunbed', emptyCart: 'Your cart is empty', backMenu: 'Back to menu', paying: 'Processing payment…',
+    success: 'Order confirmed!', successSub: "The kitchen has your order. We'll let you know when your runner is on the way.", orderNo: 'Order', paid: 'Paid', track: 'Track order', keep: 'Keep ordering',
+    ordersTitle: 'My orders', etaLabel: 'Estimated arrival', steps: ['Received', 'Preparing', 'On the way', 'Delivered'], stepSubs: ['Payment confirmed', 'The kitchen is on it', 'Marco is heading to your umbrella', 'Enjoy!'], deliveredHead: 'Delivered', status: 'Status', runnerLine: 'Runner • shaded tray', emptyOrders: 'No active orders', emptyOrdersSub: 'Order from the menu and track delivery to your sunbed here.', past: 'Earlier today', reorder: 'Reorder',
+    infoTitle: 'Lido info', yourSpot: 'Your spot', hours: 'Service hours', hBar: 'Bar & Coffee', hKitchen: 'Kitchen', hDelivery: 'Sunbed delivery', network: 'Network', sunMode: 'Sunlight mode', sunModeSub: 'Maximum contrast for direct sun', callStaff: 'Call staff',
+    runnerTitle: 'Runner mode', queue: 'To deliver', onShift: 'On shift', inQueue: 'active orders', take: 'Pick up', deliver: 'Mark delivered', sNew: 'New', sPrep: 'In kitchen', sGo: 'On the way', sDone: 'Delivered', ago: 'min ago', now: 'now',
+    nav: ['Order', 'Orders', 'Lido info', 'Runner'],
+    profileTitle: 'Profile', loginTitle: 'Log in or sign up', loginSub: 'Save your details, your umbrella and your card to order in one tap.', loginApple: 'Continue with Apple', loginGoogle: 'Continue with Google', or: 'or', loginEmail: 'Continue with email', guestNote: 'You can also order as a guest, no account needed.', loginSave: 'Log in to save umbrella and card', myData: 'My details', fullName: 'Full name', phone: 'Phone', mySpot: 'My umbrella', fromQr: 'From QR', umbrellaNo: 'Umbrella number', rowLabel: 'Row', sectorLabel: 'Sector', payMethods: 'Payment methods', addCard: 'Add card', cardNumber: 'Card number', cancel: 'Cancel', saveCard: 'Save card', cardInvalid: 'Check number, expiry and CVC.', defaultCard: 'Default', expires: 'Expires', settings: 'Settings', language: 'Language', darkMode: 'Dark mode', darkModeSub: 'For sunset and evening', logout: 'Log out', payWith: 'Pay with', welcome: 'Welcome back', cardSaved: 'Card saved', sectors: { ponente: 'West', levante: 'East' }, sectorFull: { ponente: 'West sector (below the tower)', levante: 'East sector (near the bar)' }, umbWord: 'Umbrella', rowWord: 'Row', change: 'Change', done: 'Done', spotHint: 'Moved? Update it here or scan the QR on your new umbrella.' }
+};
+const eur = n => '€' + n.toFixed(2);
+const byId = id => PRODUCTS.find(p => p.id === id);
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const start = props.startScreen ?? 'menu';
+    const prefilled = props.prefilledCart ?? true;
+    this.state = {
+      lang: props.startLang ?? 'it', sun: false, dark: props.darkMode ?? false,
+      user: null, loginEmail: '', spot: { umb: 23, row: 'C', sector: 'ponente' },
+      cards: [], selCard: null, addingCard: false, cardForm: { num: '', exp: '', cvc: '' }, cardError: false,
+      tab: ['orders', 'info', 'runner', 'profile'].includes(start) ? start : 'menu',
+      view: start === 'cart' ? 'cart' : 'menu',
+      cart: prefilled ? { aperol: 2, panino: 1, caffe: 1 } : {},
+      sheet: null, sheetQty: 1, cat: 'top', search: '', excluded: [], tip: 1, notes: '', toast: null,
+      orders: [
+        { id: 'o1', code: '#1047', umb: 41, row: 'E', lines: [['birra', 2]], step: 1, mins: 4, note: '' },
+        { id: 'o2', code: '#1046', umb: 7, row: 'A', lines: [['granita', 1], ['insalata', 1]], step: 2, mins: 9, note: 'Ombrellone giallo' },
+        { id: 'o0', code: '#1038', umb: 23, row: 'C', lines: [['caffe', 2]], step: 3, mins: 180, time: '10:42', mine: true, total: 7 }
+      ]
+    };
+    this.scrollRef = React.createRef();
+  }
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      this.setState(s => ({ orders: s.orders.map(o => (o.mine && o.live && o.step < 3 && Date.now() - o.stepAt > 9000) ? { ...o, step: o.step + 1, stepAt: Date.now() } : o) }));
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.toastT); }
+  componentDidUpdate(_, prev) {
+    if ((prev.tab !== this.state.tab || prev.view !== this.state.view) && this.scrollRef.current) this.scrollRef.current.scrollTop = 0;
+  }
+  addToCart(id, n = 1) {
+    const t = T[this.state.lang];
+    this.setState(s => ({ cart: { ...s.cart, [id]: (s.cart[id] || 0) + n }, toast: t.added }));
+    clearTimeout(this.toastT);
+    this.toastT = setTimeout(() => this.setState({ toast: null }), 1400);
+    if (navigator.vibrate) navigator.vibrate(30);
+  }
+  setQty(id, q) { this.setState(s => { const c = { ...s.cart }; if (q <= 0) delete c[id]; else c[id] = q; return { cart: c }; }); }
+  pay() {
+    const s = this.state;
+    const lines = Object.entries(s.cart);
+    const sub = lines.reduce((a, [id, q]) => a + byId(id).price * q, 0);
+    this.setState({ view: 'paying' });
+    setTimeout(() => {
+      const code = '#' + (1048 + this.state.orders.filter(o => o.mine && o.live).length);
+      const now = new Date();
+      const order = { id: 'm' + Date.now(), code, umb: s.spot.umb, row: s.spot.row, lines, step: 0, stepAt: Date.now(), mins: 0, mine: true, live: true, total: sub + s.tip, note: s.notes, time: now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0') };
+      this.setState(st => ({ orders: [order, ...st.orders], cart: {}, notes: '', view: 'success', lastOrderId: order.id }));
+    }, 1700);
+  }
+  renderVals() {
+    const s = this.state, L = s.lang, sp0 = s.spot;
+    const t = { ...T[L], umbrella: T[L].umbWord + ' ' + sp0.umb + ' • ' + T[L].rowWord + ' ' + sp0.row, sector: T[L].sectorFull[sp0.sector] };
+    const upd = (k, v) => this.setState(st => ({ [k]: { ...st[k], ...v } }));
+    const q = s.search.trim().toLowerCase();
+    const visible = PRODUCTS.filter(p => !p.al.some(a => s.excluded.includes(a)) && (!q || p.name.toLowerCase().includes(q) || p.desc[L].toLowerCase().includes(q)));
+    const card = p => ({
+      id: p.id, name: p.name, img: p.img, priceText: eur(p.price), desc: p.desc[L], qty: s.cart[p.id] || 0, inCart: !!s.cart[p.id], notInCart: !s.cart[p.id],
+      decIcon: s.cart[p.id] === 1 ? 'delete' : 'remove', dec: e => { e.stopPropagation(); this.setQty(p.id, (s.cart[p.id] || 0) - 1); },
+      tag: p.tag ? p.tag[L] : p.desc[L], tagBg: TAGC[p.tagC || 'blue'][0], tagFg: TAGC[p.tagC || 'blue'][1],
+      badge: p.badge ? t[p.badge] : '', badgeIcon: { fav: 'star', catch: 'set_meal', local: 'location_on' }[p.badge] || 'star', hasImg: !!p.img, noImg: !p.img, icon: p.icon || 'restaurant', tileBg: SECTION_TITLES[p.cat].tile,
+      badgeBg: { fav: '#fea619', catch: '#00855b', local: '#006194' }[p.badge] || '#fea619', badgeFg: { fav: '#684000', catch: '#f5fff6', local: '#fff' }[p.badge] || '#684000',
+      open: () => this.setState({ sheet: p.id, sheetQty: 1 }),
+      add: e => { e.stopPropagation(); this.addToCart(p.id); }
+    });
+    const showFeatured = s.cat === 'top' && !q;
+    const featured = showFeatured ? visible.filter(p => p.featured).map(card) : [];
+    const secKeys = s.cat === 'top' ? ['caffe', 'snack', 'alcol', 'cucina', 'dolci'] : [s.cat];
+    const sections = secKeys.map(k => {
+      const items = visible.filter(p => p.cat === k && !(showFeatured && p.featured)).map(card);
+      return { key: k, icon: SECTION_TITLES[k].icon, title: SECTION_TITLES[k][L], countText: items.length + ' ' + t.items, items };
+    }).filter(x => x.items.length);
+    const cartEntries = Object.entries(s.cart);
+    const count = cartEntries.reduce((a, [, n]) => a + n, 0);
+    const sub = cartEntries.reduce((a, [id, n]) => a + byId(id).price * n, 0);
+    const total = sub + (count ? s.tip : 0);
+    const mineLive = s.orders.filter(o => o.mine && o.live && o.step < 3);
+    const lastDelivered = s.orders.find(o => o.mine && o.live && o.step === 3 && o.id === s.lastOrderId);
+    const active = mineLive[0] || lastDelivered;
+    const fmtOrder = o => o && ({
+      code: o.code, totalText: eur(o.total || o.lines.reduce((a, [id, n]) => a + byId(id).price * n, 0)),
+      lines: o.lines.map(([id, n]) => ({ label: n + '× ' + byId(id).name, priceText: eur(byId(id).price * n) })),
+      summary: o.lines.map(([id, n]) => n + '× ' + byId(id).name).join(', ')
+    });
+    const myOrder = fmtOrder(s.orders.find(o => o.id === s.lastOrderId)) || { code: '', totalText: '' };
+    const activeOrder = fmtOrder(active) || { code: '', totalText: '', lines: [] };
+    const aStep = active ? active.step : 0;
+    const steps = t.steps.map((label, i) => {
+      const done = i < aStep || aStep === 3, cur = i === aStep && aStep < 3;
+      return { label, sub: t.stepSubs[i], icon: done ? 'check' : ['receipt_long', 'skillet', 'moped', 'beach_access'][i],
+        dotBg: done ? '#00855b' : cur ? '#006194' : '#eaedff', dotFg: done || cur ? '#fff' : '#707881',
+        ring: cur ? '0 0 0 5px rgba(0,97,148,0.15)' : 'none', fg: done || cur ? '#131b2e' : '#707881',
+        lineBg: i === 3 ? 'transparent' : (i < aStep ? '#00855b' : '#e2e7ff') };
+    });
+    const past = s.orders.filter(o => o.mine && o.step === 3 && o !== active).map(o => ({
+      ...fmtOrder(o), time: o.time,
+      reorder: () => { o.lines.forEach(([id, n]) => this.addToCart(id, n)); this.setState({ tab: 'menu', view: 'cart' }); }
+    }));
+    const statusMap = [[t.sNew, '#ffddb8', '#653e00'], [t.sPrep, '#e2e7ff', '#004b73'], [t.sGo, '#cce5ff', '#001d31'], [t.sDone, '#d4fbe7', '#005236']];
+    const runnerQueue = s.orders.filter(o => o.step < 3 || (o.live && Date.now() - (o.stepAt || 0) < 15000)).sort((a, b) => a.step - b.step).map(o => {
+      const f = fmtOrder(o), st = statusMap[o.step];
+      const nextStep = o.step < 2 ? 2 : 3;
+      return { code: o.code, umb: o.umb, row: (L === 'it' ? 'Fila ' : 'Row ') + o.row, summary: f.summary,
+        ago: o.mins ? o.mins + ' ' + t.ago : t.now, statusLabel: st[0], statusBg: st[1], statusFg: st[2],
+        border: o.mine ? '#006194' : 'transparent', hasNote: !!o.note, note: o.note, actionable: o.step < 3,
+        btnLabel: o.step < 2 ? t.take : t.deliver, btnIcon: o.step < 2 ? 'back_hand' : 'done_all',
+        btnBg: o.step < 2 ? '#006194' : '#00855b', btnFg: '#fff',
+        act: () => this.setState(st2 => ({ orders: st2.orders.map(x => x.id === o.id ? { ...x, step: nextStep, stepAt: Date.now() } : x) })) };
+    });
+    const sp = s.sheet && s.sheet !== 'allergens' ? byId(s.sheet) : null;
+    const tab = s.tab, view = s.view;
+    const isMenuTab = tab === 'menu';
+    const subTitle = !isMenuTab ? { orders: t.ordersTitle, info: t.infoTitle, runner: t.runnerTitle, profile: t.profileTitle }[tab] : t.cartTitle;
+    const subIcon = !isMenuTab ? { orders: 'moped', info: 'beach_access', runner: 'badge', profile: 'person' }[tab] : 'beach_access';
+    const u = s.user;
+    const initials = u ? u.name.split(' ').filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase() : '';
+    const selCard = s.cards.find(c => c.id === s.selCard) || s.cards[0];
+    const pickDark = (a) => a ? { bg: '#fea619', fg: '#131b2e', border: '#fea619' } : { bg: 'rgba(255,255,255,0.06)', fg: '#fff', border: 'rgba(255,255,255,0.18)' };
+    const pick = (a) => a ? { bg: '#006194', fg: '#fff', border: '#006194' } : { bg: '#f2f3ff', fg: '#3f4850', border: 'rgba(191,199,210,0.5)' };
+    const exN = s.excluded.length;
+    const navKeys = ['menu', 'orders', 'info', 'runner'], navIcons = ['restaurant_menu', 'moped', 'beach_access', 'badge'];
+    const on = { bg: '#006194', fg: '#fff' }, off = { bg: 'transparent', fg: '#3f4850' };
+    return {
+      t, scrollRef: this.scrollRef, stop: e => e.stopPropagation(),
+      sunFilter: [s.dark ? 'invert(1) hue-rotate(180deg)' : '', s.sun ? 'contrast(1.35) saturate(1.15)' : ''].join(' ').trim() || 'none',
+      darkAttr: s.dark ? '1' : '0', darkFrame: !!s.dark, toggleDark: () => this.setState({ dark: !s.dark }),
+      darkSwitch: s.dark ? { bg: '#006194', justify: 'flex-end' } : { bg: '#bfc7d2', justify: 'flex-start' },
+      isProfile: tab === 'profile', goProfile: () => this.setState({ tab: 'profile', view: 'menu' }),
+      loggedIn: !!u, loggedOut: !u, user: u || { name: '', email: '', phone: '' },
+      avatar: u ? { bg: '#006194', fg: '#fff', initials } : { bg: '#eaedff', fg: '#3f4850', initials: '' },
+      loginEmail: s.loginEmail, onLoginEmail: e => this.setState({ loginEmail: e.target.value }),
+      login: () => { this.setState({ user: { name: 'Giulia Rossi', email: s.loginEmail || 'giulia.rossi@email.it', phone: '+39 347 123 4567' }, cards: s.cards.length ? s.cards : [{ id: 'c1', brand: 'VISA', last4: '4242', exp: '08/28' }], selCard: s.selCard || 'c1', toast: t.welcome + ', Giulia' }); clearTimeout(this.toastT); this.toastT = setTimeout(() => this.setState({ toast: null }), 1400); },
+      logout: () => this.setState({ user: null, cards: [], selCard: null, addingCard: false }),
+      onName: e => upd('user', { name: e.target.value }), onPhone: e => upd('user', { phone: e.target.value }),
+      spot: sp0, editSpot: !!s.editSpot, toggleEditSpot: () => this.setState({ editSpot: !s.editSpot }),
+      editSpotBtn: s.editSpot ? { bg: '#fea619', fg: '#131b2e', label: t.done } : { bg: 'rgba(255,255,255,0.12)', fg: '#fff', label: t.change },
+      rowOptsDark: ['A', 'B', 'C', 'D', 'E', 'F'].map(r => ({ label: r, ...pickDark(sp0.row === r), select: () => upd('spot', { row: r }) })),
+      sectorOptsDark: ['ponente', 'levante'].map(k => ({ label: t.sectors[k], ...pickDark(sp0.sector === k), select: () => upd('spot', { sector: k }) })),
+      umbDec: () => upd('spot', { umb: Math.max(1, sp0.umb - 1) }), umbInc: () => upd('spot', { umb: Math.min(120, sp0.umb + 1) }),
+      rowOpts: ['A', 'B', 'C', 'D', 'E', 'F'].map(r => ({ label: r, ...pick(sp0.row === r), select: () => upd('spot', { row: r }) })),
+      sectorOpts: ['ponente', 'levante'].map(k => ({ label: t.sectors[k], ...pick(sp0.sector === k), select: () => upd('spot', { sector: k }) })),
+      cardRows: s.cards.map(c => { const on = selCard && selCard.id === c.id; return { brand: c.brand, last4: c.last4, sub: (on ? t.defaultCard + ' · ' : '') + t.expires + ' ' + c.exp, border: on ? '#006194' : '#e2e8f0', bg: on ? '#f2f3ff' : '#fff', select: () => this.setState({ selCard: c.id }), remove: () => this.setState(st => ({ cards: st.cards.filter(x => x.id !== c.id), selCard: st.selCard === c.id ? null : st.selCard })) }; }),
+      addingCard: s.addingCard, notAddingCard: !s.addingCard, cardForm: s.cardForm, cardError: s.cardError,
+      startCard: () => this.setState({ addingCard: true, cardForm: { num: '', exp: '', cvc: '' }, cardError: false }),
+      cancelCard: () => this.setState({ addingCard: false }),
+      onCardNum: e => { const d = e.target.value.replace(/\D/g, '').slice(0, 16); upd('cardForm', { num: d.replace(/(.{4})/g, '$1 ').trim() }); },
+      onCardExp: e => { const d = e.target.value.replace(/\D/g, '').slice(0, 4); upd('cardForm', { exp: d.length > 2 ? d.slice(0, 2) + '/' + d.slice(2) : d }); },
+      onCardCvc: e => upd('cardForm', { cvc: e.target.value.replace(/\D/g, '').slice(0, 4) }),
+      saveCard: () => { const f = s.cardForm, d = f.num.replace(/\D/g, ''); if (d.length < 15 || f.exp.length !== 5 || f.cvc.length < 3) { this.setState({ cardError: true }); return; } const id = 'c' + Date.now(); this.setState(st => ({ cards: [...st.cards, { id, brand: d[0] === '5' ? 'MC' : d[0] === '3' ? 'AMEX' : 'VISA', last4: d.slice(-4), exp: f.exp }], selCard: id, addingCard: false, cardError: false, toast: t.cardSaved })); clearTimeout(this.toastT); this.toastT = setTimeout(() => this.setState({ toast: null }), 1400); },
+      hasSavedCard: !!(u && selCard), savedCardPay: selCard ? t.payWith + ' ' + selCard.brand + ' •••• ' + selCard.last4 : '',
+      sunBtn: s.sun ? { bg: '#131b2e', fg: '#fea619' } : { bg: '#eaedff', fg: '#855300' },
+      sunSwitch: s.sun ? { bg: '#006194', justify: 'flex-end' } : { bg: '#bfc7d2', justify: 'flex-start' },
+      toggleSun: () => this.setState({ sun: !s.sun }),
+      langIT: L === 'it' ? on : off, langEN: L === 'en' ? on : off, langLabel: L.toUpperCase(),
+      setIT: () => this.setState({ lang: 'it' }), setEN: () => this.setState({ lang: 'en' }),
+      toggleLang: () => this.setState({ lang: L === 'it' ? 'en' : 'it' }),
+      showMenuHeader: isMenuTab && view === 'menu', showSubHeader: !(isMenuTab && (view === 'menu' || view === 'success')),
+      showBack: (isMenuTab && (view === 'cart' || view === 'paying')) || tab === 'profile', goBack: () => this.setState({ tab: 'menu', view: 'menu' }), subTitle, subIcon,
+      isMenu: isMenuTab && view === 'menu', isCart: isMenuTab && (view === 'cart' || view === 'paying'),
+      isSuccess: isMenuTab && view === 'success', isPaying: view === 'paying' && isMenuTab,
+      isOrders: tab === 'orders', isInfo: tab === 'info', isRunner: tab === 'runner',
+      pingDot: React.createElement('span', { style: { position: 'relative', width: 6, height: 6, display: 'inline-flex' } },
+        React.createElement('span', { style: { position: 'absolute', inset: 0, borderRadius: 9999, background: '#6ffbbe', animation: 'lidoPing 1.4s cubic-bezier(0,0,.2,1) infinite' } }),
+        React.createElement('span', { style: { position: 'relative', width: 6, height: 6, borderRadius: 9999, background: '#6ffbbe' } })),
+      spinner: React.createElement('span', { style: { width: 44, height: 44, borderRadius: 9999, border: '4px solid #e2e7ff', borderTopColor: '#006194', animation: 'lidoSpin .8s linear infinite', display: 'block' } }),
+      search: s.search, onSearch: e => this.setState({ search: e.target.value }),
+      openAllergens: () => this.setState({ sheet: 'allergens' }),
+      hasAllergenFilter: exN > 0, noAllergenFilter: exN === 0, excludedCount: exN,
+      excludedText: exN + ' ' + (exN === 1 ? t.excluded1 : t.excluded), clearAllergens: () => this.setState({ excluded: [] }),
+      cats: CATS.map(c => ({ ...c, label: c[L], bg: s.cat === c.key ? '#006194' : '#fff', fg: s.cat === c.key ? '#fff' : '#3f4850', select: () => this.setState({ cat: c.key }) })),
+      showFeatured: featured.length > 0, featured, sections, noResults: !featured.length && !sections.length,
+      hasCart: count > 0, emptyCart: count === 0, showHub: count > 0 && isMenuTab && view === 'menu',
+      hubCount: count + ' ' + (L === 'it' ? (count === 1 ? 'articolo nel carrello' : 'articoli nel carrello') : (count === 1 ? 'item in cart' : 'items in cart')),
+      goCart: () => this.setState({ tab: 'menu', view: 'cart' }), goMenu: () => this.setState({ tab: 'menu', view: 'menu' }),
+      goOrders: () => this.setState({ tab: 'orders', view: 'menu' }),
+      yourOrderTitle: t.yourOrder + ' (' + count + ')',
+      cartLines: cartEntries.map(([id, n]) => { const p = byId(id); return { name: p.name, img: p.img, hasImg: !!p.img, noImg: !p.img, icon: p.icon || 'restaurant', tileBg: SECTION_TITLES[p.cat].tile, desc: p.cart[L], qty: n, lineText: eur(p.price * n), eachText: eur(p.price) + ' ' + t.each, decIcon: n === 1 ? 'delete' : 'remove', dec: () => this.setQty(id, n - 1), inc: () => this.setQty(id, n + 1) }; }),
+      notes: s.notes, onNotes: e => this.setState({ notes: e.target.value }),
+      tips: [0, 1, 2, 3].map(v => ({ label: v ? '€' + v.toFixed(2) : t.noTip, bg: s.tip === v ? '#006194' : '#f2f3ff', fg: s.tip === v ? '#fff' : '#3f4850', border: s.tip === v ? '#006194' : 'rgba(191,199,210,0.5)', select: () => this.setState({ tip: v }) })),
+      subtotalLabel: t.subtotal + ' (' + count + ')', subtotalText: eur(sub), tipText: eur(s.tip), totalText: eur(total),
+      pay: () => this.pay(), myOrder,
+      hasActive: !!active, noActive: !active, activeOrder,
+      activeHeadLabel: active && active.step < 3 ? t.etaLabel : t.status,
+      activeHead: active ? (active.step < 3 ? '~' + Math.max(2, 12 - active.step * 4) + ' min' : t.deliveredHead) : '',
+      steps, pastOrders: past,
+      hoursRows: [{ icon: 'coffee', label: t.hBar, value: '08:00–19:00' }, { icon: 'restaurant', label: t.hKitchen, value: '12:00–15:30' }, { icon: 'moped', label: t.hDelivery, value: '09:00–19:00' }],
+      runnerQueue, queueCountText: s.orders.filter(o => o.step < 3).length + ' ' + t.inQueue,
+      showNav: !(isMenuTab && (view === 'cart' || view === 'paying' || view === 'success')),
+      navItems: navKeys.map((k, i) => ({ label: t.nav[i], icon: navIcons[i], color: tab === k ? '#006194' : '#3f4850', fill: tab === k ? 1 : 0, dot: k === 'orders' && mineLive.length > 0, go: () => this.setState({ tab: k, view: 'menu' }) })),
+      hasProductSheet: !!sp, closeSheet: () => this.setState({ sheet: null }),
+      sheetP: sp ? { name: sp.name, img: sp.img, hasImg: !!sp.img, noImg: !sp.img, icon: sp.icon || 'restaurant', tileBg: SECTION_TITLES[sp.cat].tile, priceText: eur(sp.price), long: sp.long[L], allergenChips: sp.al.map(a => ALLERGENS[a][L]), noAllergens: !sp.al.length } : { allergenChips: [] },
+      sheetQty: s.sheetQty, sheetDec: () => this.setState({ sheetQty: Math.max(1, s.sheetQty - 1) }), sheetInc: () => this.setState({ sheetQty: s.sheetQty + 1 }),
+      sheetAddLabel: t.add + ' · ' + (sp ? eur(sp.price * s.sheetQty) : ''),
+      sheetAdd: () => { this.addToCart(sp.id, s.sheetQty); this.setState({ sheet: null }); },
+      hasAllergenSheet: s.sheet === 'allergens',
+      allergenOpts: Object.keys(ALLERGENS).map(k => { const x = s.excluded.includes(k); return { label: ALLERGENS[k][L], check: x ? 'check' : '', bg: x ? '#f2f3ff' : '#fff', border: x ? '#006194' : '#e2e8f0', boxBg: x ? '#006194' : '#fff', boxBorder: x ? '#006194' : '#bfc7d2', toggle: () => this.setState(st => ({ excluded: x ? st.excluded.filter(e => e !== k) : [...st.excluded, k] })) }; }),
+      applyLabel: t.show + ' ' + visible.length + ' ' + t.productsWord,
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
